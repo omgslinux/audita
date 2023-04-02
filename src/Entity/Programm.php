@@ -22,7 +22,7 @@ class Programm
     #[ORM\Column(length: 8)]
     private ?string $code = null;
 
-    #[ORM\Column(length: 64)]
+    #[ORM\Column(length: 128)]
     private ?string $description = null;
 
     #[ORM\OneToMany(mappedBy: 'programm', targetEntity: BudgetItem::class)]

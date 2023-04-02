@@ -134,65 +134,71 @@ class BudgetYearController extends AbstractController
                     //while (($line = fgetcsv($data, 1000, "\t")) !== false) {
                         dump($line);
                         if (!empty($line)) {
-                            list($centerCode, $centerDescription, $programmCode,
-                            $programmDescription, $subCode, $subDescription, $_credits) = explode("\t", $line);
-                            $credits = explode("\t", $_credits);
-                            $iniCredit = $credits[0];
-                            $currentCredit = (!empty($credits[1])?$credits[1]:0);
+                            $items = explode("\t", $line);
+                            dump($items);
+                            list($centerCode, $centerDescription, $programmCode, $programmDescription) = $items;
+                            //$programmDescription, $subCode, $subDescription, $_credits) = explode("\t", $line);
                             if ($_center != $centerCode) {
                                 dump($centerCode, $centerDescription);
-                                $_center = $centerCode;
+                                $_center = trim($centerCode);
                                 $center = $MCR->findOneByCode($_center);
                                 if (null==$center) {
                                     $center = new \App\Entity\ManagementCenter();
                                     $center->setCode((string)$_center)
-                                    ->setDescription($centerDescription)
+                                    ->setDescription(trim($centerDescription))
                                     ->setYear($entity);
                                     $MCR->save($center, true);
                                 }
                             }
                             if ($_programm != $programmCode) {
                                 dump($programmCode, $programmDescription);
-                                $_programm = $programmCode;
+                                $_programm = trim($programmCode);
                                 $programm = $PGR->findOneByCode($_programm);
                                 if (null==$programm) {
                                     $programm = new \App\Entity\Programm();
                                     $programm->setCode((string)$_programm)
-                                    ->setDescription($programmDescription)
+                                    ->setDescription(trim($programmDescription))
                                     ->setYear($entity);
                                     $PGR->save($programm, true);
                                 }
                             }
-                            $subConcept = $SCR->findOneByCode($subCode);
-                            if (null==$subConcept) {
-                                $subConcept = new \App\Entity\Subconcept();
-                                $subConcept->setCode((string) $subCode)
-                                ->setDescription($subDescription)
-                                ->setYear($entity);
-                                $SCR->save($subConcept, true);
-                            }
+                            if (!empty($items[4]) && strlen(trim($items[4]))) {
+                                $subCode = trim($items[4]);
+                                $subDescription = trim($items[5]);
+                                $subConcept = $SCR->findOneByCode($subCode);
+                                dump($subCode, $subConcept);
+                                if (null==$subConcept) {
+                                    $subConcept = new \App\Entity\Subconcept();
+                                    $subConcept->setCode((string) $subCode)
+                                    ->setDescription($subDescription)
+                                    ->setYear($entity);
+                                    $SCR->save($subConcept, true);
+                                }
 
-                            $budgetItem = $BIR->findOneBy(
-                                [
-                                    'year' => $entity,
-                                    'center' => $center,
-                                    'programm' => $programm,
-                                    'subconcept' => $subConcept
-                                ]
-                            );
-                            if (null==$budgetItem) {
-                                $budgetItem = new BudgetItem();
-                                $budgetItem
-                                ->setYear($entity)
-                                ->setCenter($center)
-                                ->setProgramm($programm)
-                                ->setSubconcept($subConcept);
+                                $budgetItem = $BIR->findOneBy(
+                                    [
+                                        'year' => $entity,
+                                        'center' => $center,
+                                        'programm' => $programm,
+                                        'subconcept' => $subConcept
+                                    ]
+                                );
+                                if (null==$budgetItem) {
+                                    $budgetItem = new BudgetItem();
+                                    $budgetItem
+                                    ->setYear($entity)
+                                    ->setCenter($center)
+                                    ->setProgramm($programm)
+                                    ->setSubconcept($subConcept);
+                                }
+                                $iniCredit = trim($items[6]);
+                                $currentCredit = (!empty($items[7])?(float)trim($credits[7]):0);
+                                $budgetItem->setInitialCredit((float)$iniCredit)
+                                ->setCurrentCredit(!empty($currentCredit)?$currentCredit:0);
+                                //$entity->addBudgetItem($budgetItem);
+                                //$this->repo->save($entity, true);
+                                $BIR->save($budgetItem, true);
                             }
-                            $budgetItem->setInitialCredit((float)$iniCredit)
-                            ->setCurrentCredit(!empty($currentCredit)?(float)$currentCredit:0);
-                            //$entity->addBudgetItem($budgetItem);
-                            //$this->repo->save($entity, true);
-                            $BIR->save($budgetItem, true);
                         }
                     }
                 }
