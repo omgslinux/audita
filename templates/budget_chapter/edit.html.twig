@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit BudgetChapters{% endblock %}
+
+{% block body %}
+    <h1>Edit BudgetChapters</h1>
+
+    {{ include('budget_chapter/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path(PREFIX ~ 'index') }}">back to list</a>
+
+    {{ include('budget_chapter/_delete_form.html.twig') }}
+{% endblock %}

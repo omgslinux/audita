@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}BudgetChapters{% endblock %}
+
+{% block body %}
+    <h1>BudgetChapters</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ budget_chapter.id }}</td>
+            </tr>
+            <tr>
+                <th>Code</th>
+                <td>{{ budget_chapter.code }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ budget_chapter.description }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path(PREFIX ~ 'index') }}">back to list</a>
+
+    <a href="{{ path(PREFIX ~ 'edit', {'id': budget_chapter.id}) }}">edit</a>
+
+    {{ include('budget_chapter/_delete_form.html.twig') }}
+{% endblock %}
