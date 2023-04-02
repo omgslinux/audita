@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block body %}
+    <h1>{{ h1 }}</h1>
+
+    <style>
+    section {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-gap: 20px;
+    }
+
+    button {
+        font-weight: bold !important;
+        color: white !important;
+        border: 2px solid black !important;
+    }
+
+    #blue button {
+        background-color: blue;
+    }
+
+    #green button {
+        background-color: green;
+    }
+    </style>
+
+    <h2>Resúmenes presupuestarios</h2>
+    <section id="blue">
+    {% for item in REPORTS.blue %}
+        {# dump(item)#}
+        <button class="btn">{{ item.title }}</button>
+    {% endfor %}
+    </section>
+    <hr>
+    <h2>El papel del sector privado</h2>
+    <section id="green">
+    {% for item in REPORTS.green %}
+        {# dump(item)#}
+        <button class="btn">{{ item.title }}</button>
+    {% endfor %}
+    </section>
+    </section>
+{% endblock %}
