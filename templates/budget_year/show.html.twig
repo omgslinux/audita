@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Años presupuestarios{% endblock %}
+
+{% block body %}
+    <h1>Año presupuestario</h1>
+
+    <div class="row">
+        <div class="col-2"><a href="{{ path(PREFIX ~ 'edit', {'id': budget_year.id}) }}">Año</a></div>
+        <div class="col-5">{% set num = budget_year.budgetItems|length %}{{ num>0?num:'No hay datos' }}</div>
+    </div>
+
+    <a href="{{ path(PREFIX ~ 'index') }}">Volver</a>
+
+    {{ form_start(form)}}
+    <div class="row">
+        <div class="col-10">
+            {{ form_row(form.data, {'label': 'Datos'}) }}
+            <button class="btn btn-primary">{{ button_label|default('Guardar') }}</button>
+        </div>
+    </div>
+    {{ form_end(form)}}
+{% endblock %}

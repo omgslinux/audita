@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}BudgetYear index{% endblock %}
+
+{% block body %}
+    <h1>BudgetYear index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Year</th>
+                <th>Registros</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for year in budget_years %}
+            <tr>
+                <td><a href="{{ path(PREFIX ~ 'show', {'id': year.id}) }}">{{ year.year ? year.year|date('Y') : '' }}</td>
+                <td>{% set num = year.budgetItems|length %}{{ (num>0?num:'No hay registros') }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path(PREFIX ~ 'new') }}">Create new</a>
+{% endblock %}

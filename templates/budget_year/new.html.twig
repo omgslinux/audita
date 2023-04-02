@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New BudgetYear{% endblock %}
+
+{% block body %}
+    <h1>Create new BudgetYear</h1>
+
+    {{ include('budget_year/_form.html.twig') }}
+
+    <a href="{{ path(PREFIX ~ 'index') }}">back to list</a>
+{% endblock %}
