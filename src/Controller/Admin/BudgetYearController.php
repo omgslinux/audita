@@ -19,7 +19,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/admin/budget/year', name: 'admin_budget_year_')]
 class BudgetYearController extends AbstractController
 {
-    const PREFIX = 'admin_budget_year';
+    const PREFIX = 'admin_budget_year_';
     private $repo;
 
     public function __construct(BudgetYearRepository $budgetYearRepository)
@@ -192,7 +192,7 @@ class BudgetYearController extends AbstractController
                                     ->setSubconcept($subConcept);
                                 }
                                 $iniCredit = trim($items[6]);
-                                $currentCredit = (!empty($items[7])?(float)trim($credits[7]):0);
+                                $currentCredit = (!empty($items[7])?(float)trim($items[7]):0);
                                 $budgetItem->setInitialCredit((float)$iniCredit)
                                 ->setCurrentCredit(!empty($currentCredit)?$currentCredit:0);
                                 //$entity->addBudgetItem($budgetItem);

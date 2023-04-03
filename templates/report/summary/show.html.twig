@@ -7,20 +7,20 @@
     <h1>{{ h1 }}</h1>
 
     <div class="row bg-info">
-        <div class="col-1"></div>
-        <div class="col-3">Presupuesto inicial</div>
-        <div class="col-3">Presupuesto liquidado</div>
-        <div class="col-2">Desviación neta</div>
-        <div class="col-1">Desviación en más</div>
-        <div class="col-1">Desviación en menos</div>
+        <div class="col-2"></div>
+        <div class="col-2 text-center font-weight-bold">Presupuesto inicial</div>
+        <div class="col-2 text-center font-weight-bold">Presupuesto liquidado</div>
+        <div class="col-2 text-center font-weight-bold">Desviación neta</div>
+        <div class="col-2 text-center font-weight-bold">Desviación en más</div>
+        <div class="col-2 text-center font-weight-bold">Desviación en menos</div>
     </div>
     <div class="row">
-        <div class="col-1 border">TOTAL</div>
-        <div class="col-3 border">{{ totals.totalInit|number_format(2, ',', '.') }}€</div>
-        <div class="col-3 border">{{ totals.totalCurrent|number_format(2, ',', '.')  }}</div>
-        <div class="col-2 border">{{ (totals.totalCurrent - totals.totalInit)|number_format(2, ',', '.')  }}</div>
-        <div class="col-1 border">Desviación en más</div>
-        <div class="col-1 border">Desviación en más</div>
+        <div class="col-2 border">TOTAL</div>
+        <div class="col-2 border text-right">{{ totals.totalInit|number_format(2, ',', '.') }} €</div>
+        <div class="col-2 border text-right">{{ totals.totalCurrent|number_format(2, ',', '.') }} €</div>
+        <div class="col-2 border text-right">{{ (totals.totalCurrent - totals.totalInit)|number_format(2, ',', '.') }} €</div>
+        <div class="col-2 border text-right">{{ totals.devPos|number_format(2, ',', '.') }} €</div>
+        <div class="col-2 border text-right">{{ totals.devNeg|number_format(2, ',', '.') }} €</div>
     </div>
 
 {% endblock %}

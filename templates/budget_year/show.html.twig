@@ -3,7 +3,7 @@
 {% block title %}Años presupuestarios{% endblock %}
 
 {% block body %}
-    <h1>Año presupuestario</h1>
+    <h1>Año presupuestario {{ budget_year.year|date('Y')}}</h1>
 
     <div class="row">
         <div class="col-2"><a href="{{ path(PREFIX ~ 'edit', {'id': budget_year.id}) }}">Año</a></div>

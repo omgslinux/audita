@@ -27,15 +27,25 @@ class YearSummaryController extends AbstractController
         $h1 = "Resumen $year";
         $title = "Comparación presupuesto inicial y liquidado $year";
         //$budgets = $bRepo->findByYear($budgetYear);
-        $totalInit = $totalCurrent = 0;
+        $totalInit = $totalCurrent = $devPos = $devNeg = 0;
         //foreach ($budgets as $budget) {
         foreach ($bRepo->findByYear($budgetYear) as $budget) {
-            $totalInit += $budget->getInitialCredit();
-            $totalCurrent += $budget->getCurrentCredit();
+            $init = $budget->getInitialCredit();
+            $current = $budget->getCurrentCredit();
+            $totalInit += $init;
+            $totalCurrent += $current;
+            $deviation = $current - $init;
+            if ($deviation>0) {
+                $devPos += $deviation;
+            } else {
+                $devNeg += $deviation;
+            }
         }
         $totals = [
             'totalInit' => $totalInit,
             'totalCurrent' => $totalCurrent,
+            'devPos' => $devPos,
+            'devNeg' => $devNeg,
         ];
         return $this->render('report/summary/show.html.twig', [
             //'budgets' => $budgets,
