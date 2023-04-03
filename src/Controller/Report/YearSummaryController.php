@@ -23,14 +23,25 @@ class YearSummaryController extends AbstractController
     #[Route('/{id}/show', name: 'show', methods: ['GET'])]
     public function index(BudgetItemRepository $bRepo, BudgetYear $budgetYear): Response
     {
-        $year = $budgetYear->getYear()->format('y');
+        $year = $budgetYear->getYear()->format('Y');
         $h1 = "Resumen $year";
         $title = "Comparación presupuesto inicial y liquidado $year";
-        $budgets = $bRepo->findByYear($budgetYear);
-        return $this->render('reports/summary/index.html.twig', [
-            'budgets' => $budgets,
+        //$budgets = $bRepo->findByYear($budgetYear);
+        $totalInit = $totalCurrent = 0;
+        //foreach ($budgets as $budget) {
+        foreach ($bRepo->findByYear($budgetYear) as $budget) {
+            $totalInit += $budget->getInitialCredit();
+            $totalCurrent += $budget->getCurrentCredit();
+        }
+        $totals = [
+            'totalInit' => $totalInit,
+            'totalCurrent' => $totalCurrent,
+        ];
+        return $this->render('report/summary/show.html.twig', [
+            //'budgets' => $budgets,
             'title' => $title,
             'h1' => $h1,
+            'totals' => $totals,
         ]);
     }
 }

@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/admin/budget/year', name: 'admin_budget_year')]
+#[Route('/admin/budget/year', name: 'admin_budget_year_')]
 class BudgetYearController extends AbstractController
 {
     const PREFIX = 'admin_budget_year';

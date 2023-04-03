@@ -2,9 +2,12 @@
 
 namespace App\Controller\Report;
 
+use App\Entity\BudgetYear;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class ReportIndexController extends AbstractController
 {
@@ -119,14 +122,41 @@ class ReportIndexController extends AbstractController
         ]
     ];
 
-    #[Route('/report/index', name: 'app_report_index')]
-    public function index(): Response
+    #[Route('/report/index', name: 'app_report_index', methods: ['GET', 'POST'])]
+    public function index(Request $request): Response
     {
+        $budgetYear = new BudgetYear();
+        $form = $this->createFormBuilder($budgetYear->getYear())
+        ->add(
+            'year',
+            EntityType::class,
+            [
+                'class' => BudgetYear::class,
+                //'data' => $budgetYear,
+                'multiple' => false,
+                'expanded' => false,
+            ]
+        )
+        ->getForm();
+
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            //$budgetYearRepository->save($budgetYear, true);
+            $yearId =$request->get('form')['year'];
+            $path = $request->get('report')[0];
+            return $this->redirectToRoute($path . 'show', ['id' => $yearId ], Response::HTTP_SEE_OTHER);
+
+            //return $this->redirectToRoute(self::PREFIX . 'index', [], Response::HTTP_SEE_OTHER);
+        }
+
         $title = "Indice de informes";
         $h1 = $title;
         return $this->render('report/index.html.twig', [
             'title' => $title,
             'h1' => $h1,
+            'form' => $form,
             'REPORTS' => self::REPORTS,
         ]);
     }
