@@ -7,8 +7,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\UniqueConstraint;
+use Doctrine\ORM\Mapping\Index;
 
 #[ORM\Entity(repositoryClass: BudgetYearRepository::class)]
+#[UniqueConstraint(name: "year", columns: ["year"])]
+#[Index(name: "year_idx", fields: ["year"])]
 class BudgetYear
 {
     #[ORM\Id]
@@ -16,7 +20,7 @@ class BudgetYear
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[ORM\Column(type: Types::DATE_MUTABLE, unique: true)]
     private ?\DateTimeInterface $year = null;
 
     #[ORM\OneToMany(mappedBy: 'year', targetEntity: ManagementCenter::class)]

@@ -6,8 +6,10 @@ use App\Repository\ManagementCenterRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\UniqueConstraint;
 
 #[ORM\Entity(repositoryClass: ManagementCenterRepository::class)]
+#[UniqueConstraint(name: "yearcode", columns: ["year_id", "code"])]
 class ManagementCenter
 {
     #[ORM\Id]

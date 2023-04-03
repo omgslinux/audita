@@ -6,8 +6,10 @@ use App\Repository\SubconceptRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\UniqueConstraint;
 
 #[ORM\Entity(repositoryClass: SubconceptRepository::class)]
+#[UniqueConstraint(name: "yearcode", columns: ["year_id", "code"])]
 class Subconcept
 {
     #[ORM\Id]
