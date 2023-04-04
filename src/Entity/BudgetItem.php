@@ -5,9 +5,11 @@ namespace App\Entity;
 use App\Repository\BudgetItemRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\UniqueConstraint;
+use Doctrine\ORM\Mapping\Index;
 
 #[ORM\Entity(repositoryClass: BudgetItemRepository::class)]
 #[UniqueConstraint(name: "budgetItem", columns: ["year_id", "center_id", "programm_id", "subconcept_id"])]
+#[Index(name: "budget_idx", fields: ["year", "center_id", "programm_id", "subconcept_id"])]
 class BudgetItem
 {
     #[ORM\Id]

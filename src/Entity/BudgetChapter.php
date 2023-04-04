@@ -5,8 +5,10 @@ namespace App\Entity;
 use App\Repository\BudgetChapterRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\Index;
 
 #[ORM\Entity(repositoryClass: BudgetChapterRepository::class)]
+#[Index(name: "code", fields: ["code"])]
 class BudgetChapter
 {
     #[ORM\Id]
