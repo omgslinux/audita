@@ -1,0 +1,89 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block body %}
+<style>
+    table,th,td {
+        font-size: 0.7rem;
+        font-family: sans-serif;
+    }
+    th {
+        text-align: center;
+        background-color: blue;
+        color: white;
+        font: 1.5rem;
+        font-weight: bolder;
+    }
+</style>
+    <h1>{{ h1 }}</h1>
+
+    {% set itemtotals = totals.totals %}
+    {% for chapternum, centers in totals.chapter %}{% set chaptertotals = totals.chapter[chapternum].totals %}
+        <table class="table table-bordered">
+          <thead rowspan="3">
+          <tr>
+            <th colspan="9">Capítulo {{ chapternum }}: {{ chapters[chapternum] }}</th></tr>
+          <tr>
+            <th rowspan="2">Descripción</th>
+            <th colspan="2">Presupuesto inicial</th>
+            <th colspan="2">Presupuesto liquidado</th>
+            <th colspan="2">Desviación neta</th>
+            <th rowspan="2">Desviación en más</th>
+            <th rowspan="2">Desviación en menos</th>
+          </tr>
+          <tr>
+            <th>Importe</th>
+            <th>%</th>
+            <th>Importe</th>
+            <th>%</th>
+            <th>Importe</th>
+            <th>%</th>
+          </tr>
+          </thead>
+          <tbody>
+            {% for centercode in centers.centers %}
+              <tr>
+                <td>{{ centercode.center.description }}</td>
+                <td class="text-right">{{ centercode.totals.totalInit|number_format(2, ',', '.') }}€</td>
+                <td>{{ (centercode.totals.totalInit * 100 / chaptertotals.totalInit)|number_format(2,  ',', '.') }}%</td>
+                <td class="text-right">{{ centercode.totals.totalCurrent|number_format(2, ',', '.') }}&nbsp;€</td>
+                <td>{{ chaptertotals.totalCurrent>0?(centercode.totals.totalCurrent * 100 / chaptertotals.totalCurrent)|number_format(2,  ',', '.') ~ '%':'--' }}</td>
+                <td class="col-2 border text-right">{{ (centercode.totals.totalCurrent - centercode.totals.totalInit)|number_format(2, ',', '.') }}&nbsp;€</td>
+                <td>{{ ((centercode.totals.totalCurrent - centercode.totals.totalInit) / (chaptertotals.totalCurrent - chaptertotals.totalInit) * 100)|number_format(2,  ',', '.') }}%</td>
+                <td class="col-2 border text-right">{{ centercode.totals.devPos|number_format(2, ',', '.') }}&nbsp;€</td>
+                <td class="col-2 border text-right">{{ centercode.totals.devNeg|number_format(2, ',', '.') }}&nbsp;€</td>
+                {#}<td class="text-right">{{ chapternum.totalInit|number_format(2, ',', '.') }}&nbsp;€</td>
+                <td>Centercode: {{ dump(centercode) }}</td><td>Chaptertotals: {{ dump(chaptertotals) }}</td>
+                #}
+              </tr>
+          {% endfor %}
+                <tr class="bg-primary font-weight-bold">
+                    <td>TOTAL</td>
+                    <td class="text-right">{{ chaptertotals.totalInit|number_format(2, ',', '.') }}&nbsp;€</td>
+                    <td>{{ (chaptertotals.totalInit * 100 / chaptertotals.totalInit)|number_format(2,  ',', '.') }}%</td>
+                    <td class="text-right">{{ chaptertotals.totalCurrent|number_format(2, ',', '.') }}&nbsp;€</td>
+                    <td>{{ chaptertotals.totalCurrent>0 ? (chaptertotals.totalCurrent * 100 / chaptertotals.totalCurrent)|number_format(2,  ',', '.') ~ '%' : '--' }}</td>
+                    <td class="col-2 border text-right">{{ (chaptertotals.totalCurrent - chaptertotals.totalInit)|number_format(2, ',', '.') }}&nbsp;€</td>
+                    <td>{{ ((chaptertotals.totalCurrent - chaptertotals.totalInit) / (chaptertotals.totalCurrent - chaptertotals.totalInit) * 100)|number_format(2,  ',', '.') }}%</td>
+                    <td class="col-2 border text-right">{{ chaptertotals.devPos|number_format(2, ',', '.') }}&nbsp;€</td>
+                    <td class="col-2 border text-right">{{ chaptertotals.devNeg|number_format(2, ',', '.') }}&nbsp;€</td>
+                </tr>
+              </tbody>
+            </table>
+        {% endfor %}
+        <table>
+        <tr class="bg-primary font-weight-bold">
+            <td>TOTAL</td>
+            <td class="text-right">{{ itemtotals.totalInit|number_format(2, ',', '.') }}&nbsp;€</td>
+            <td>{{ (itemtotals.totalInit * 100 / itemtotals.totalInit)|number_format(2,  ',', '.') }}%</td>
+            <td class="text-right">{{ itemtotals.totalCurrent|number_format(2, ',', '.') }}&nbsp;€</td>
+            <td>{{ itemtotals.totalCurrent>0 ? (itemtotals.totalCurrent * 100 / itemtotals.totalCurrent)|number_format(2,  ',', '.') ~ '%' : '--' }}</td>
+            <td class="col-2 border text-right">{{ (itemtotals.totalCurrent - itemtotals.totalInit)|number_format(2, ',', '.') }}&nbsp;€</td>
+            <td>{{ ((itemtotals.totalCurrent - itemtotals.totalInit) / (itemtotals.totalCurrent - itemtotals.totalInit) * 100)|number_format(2,  ',', '.') }}%</td>
+            <td class="col-2 border text-right">{{ itemtotals.devPos|number_format(2, ',', '.') }}&nbsp;€</td>
+            <td class="col-2 border text-right">{{ itemtotals.devNeg|number_format(2, ',', '.') }}&nbsp;€</td>
+        </tr>
+    </table>
+
+{% endblock %}
