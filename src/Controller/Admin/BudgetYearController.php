@@ -132,16 +132,21 @@ class BudgetYearController extends AbstractController
                 if (!empty($param['data'])) {
                     foreach (preg_split("/((\r?\n)|(\r\n?))/", $param['data']) as $line) {
                     //while (($line = fgetcsv($data, 1000, "\t")) !== false) {
-                        dump($line);
+                        //dump($line);
                         if (!empty($line)) {
                             $items = explode("\t", $line);
-                            dump($items);
+                            //dump($items);
                             list($centerCode, $centerDescription, $programmCode, $programmDescription) = $items;
                             //$programmDescription, $subCode, $subDescription, $_credits) = explode("\t", $line);
                             if ($_center != $centerCode) {
-                                dump($centerCode, $centerDescription);
+                                //dump($centerCode, $centerDescription);
                                 $_center = trim($centerCode);
-                                $center = $MCR->findOneByCode($_center);
+                                $center = $MCR->findOneBy(
+                                    [
+                                        'code' => $_center,
+                                        'year' => $entity
+                                    ]
+                                );
                                 if (null==$center) {
                                     $center = new \App\Entity\ManagementCenter();
                                     $center->setCode((string)$_center)
@@ -153,7 +158,12 @@ class BudgetYearController extends AbstractController
                             if ($_programm != $programmCode) {
                                 dump($programmCode, $programmDescription);
                                 $_programm = trim($programmCode);
-                                $programm = $PGR->findOneByCode($_programm);
+                                $programm = $PGR->findOneByCode(
+                                    [
+                                        'code' => $_programm,
+                                        'year' => $entity
+                                    ]
+                                );
                                 if (null==$programm) {
                                     $programm = new \App\Entity\Programm();
                                     $programm->setCode((string)$_programm)
@@ -191,8 +201,8 @@ class BudgetYearController extends AbstractController
                                     ->setProgramm($programm)
                                     ->setSubconcept($subConcept);
                                 }
-                                $iniCredit = trim($items[6]);
-                                $currentCredit = (!empty($items[7])?(float)trim($items[7]):0);
+                                $iniCredit = str_replace(',', '.', trim($items[6]));
+                                $currentCredit = (!empty($items[7])?(float)str_replace(',', '.', trim($items[7])):0);
                                 $budgetItem->setInitialCredit((float)$iniCredit)
                                 ->setCurrentCredit(!empty($currentCredit)?$currentCredit:0);
                                 //$entity->addBudgetItem($budgetItem);
@@ -212,6 +222,4 @@ class BudgetYearController extends AbstractController
             'PREFIX' => self::PREFIX,
         ]);
     }
-
-
 }
