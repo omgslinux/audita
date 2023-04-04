@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/report/summary', name: 'app_report_summary_')]
+#[Route('/report/summary/byyear', name: 'app_report_summary_byyear_')]
 class YearSummaryController extends AbstractController
 {
 
@@ -47,7 +47,7 @@ class YearSummaryController extends AbstractController
             'devPos' => $devPos,
             'devNeg' => $devNeg,
         ];
-        return $this->render('report/summary/show.html.twig', [
+        return $this->render('report/summary/year_summary.html.twig', [
             //'budgets' => $budgets,
             'title' => $title,
             'h1' => $h1,

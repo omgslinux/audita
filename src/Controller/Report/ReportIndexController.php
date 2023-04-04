@@ -15,11 +15,11 @@ class ReportIndexController extends AbstractController
         'blue' => [
             [
                 'title' => 'Resumen anual',
-                'path' => 'app_report_summary_',
+                'path' => 'app_report_summary_byyear_',
             ],
             [
                 'title' => 'Por capitulos',
-                'path' => 'app_report_chapters_',
+                'path' => 'app_report_summary_bychapter_',
             ],
             [
                 'title' => 'Inversiones',
