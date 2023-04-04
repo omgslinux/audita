@@ -3,6 +3,8 @@
 namespace App\Repository;
 
 use App\Entity\BudgetItem;
+use App\Entity\BudgetChapter;
+use App\Entity\BudgetYear;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -37,6 +39,43 @@ class BudgetItemRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function findByChapter(BudgetChapter $BudgetChapter): array
+    {
+        return $this->findByChapterNumber($BudgetChapter->getCode());
+    }
+
+    public function findByChapterNumber(int $chapter): array
+    {
+        $qb = $this->createQueryBuilder('b')
+            ->join('b.subconcept', 's')
+            ->andWhere('s.code >= :min')
+            ->andWhere('s.code < :max')
+            ->setParameter('min', $chapter * 10000)
+            ->setParameter('max', ($chapter+1) * 10000)
+            ->orderBy('b.id', 'ASC')
+            ->getQuery()
+            //->getResult()
+        ;
+        return $qb->getResult();
+    }
+
+    public function findByYearChapterNumber(BudgetYear $year, int $chapter): array
+    {
+        $qb = $this->createQueryBuilder('b')
+            ->join('b.subconcept', 's')
+            ->andWhere('s.code >= :min')
+            ->andWhere('s.code < :max')
+            ->andWhere('b.year = :year')
+            ->setParameter('min', $chapter * 10000)
+            ->setParameter('max', ($chapter+1) * 10000)
+            ->setParameter('year', $year)
+            ->orderBy('b.id', 'ASC')
+            ->getQuery()
+            //->getResult()
+        ;
+        return $qb->getResult();
     }
 
 //    /**

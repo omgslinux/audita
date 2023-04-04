@@ -23,7 +23,7 @@ class ReportIndexController extends AbstractController
             ],
             [
                 'title' => 'Inversiones',
-                'path' => 'app_report_investings_',
+                'path' => 'app_report__summary_investments_',
             ],
             [
                 'title' => 'Gastos de personal',
