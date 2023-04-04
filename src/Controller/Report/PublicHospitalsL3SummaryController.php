@@ -61,7 +61,7 @@ class PublicHospitalsL3SummaryController extends AbstractController
             if ($code < 10) {
                 $chapters[$code] = $chapter->getDescription();
             }
-        }dump($chapters);
+        }//dump($chapters);
 
         $budgets = $bRepo->findBy(
             [
@@ -119,7 +119,7 @@ class PublicHospitalsL3SummaryController extends AbstractController
                 $totals['totals']['devNeg'] += $deviation;
             }
         }
-        dump($totals);
+        //dump($totals);
 
         return $this->render('report/summary/public_third_level_summary.html.twig', [
             //'budgets' => $budgets,
