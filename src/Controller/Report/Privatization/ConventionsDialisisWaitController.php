@@ -61,7 +61,7 @@ class ConventionsDialisisWaitController extends AbstractController
             }
         } else {
             $progs = $this->PR->findByYearExceptProgramms($budgetYear, $progcodes);
-        }dump($progs);
+        }
 
         $progstotal =
         [
