@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Programm;
+use App\Entity\BudgetYear;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -37,6 +38,21 @@ class ProgrammRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function findByYearExceptProgramms(BudgetYear $year, $programms): array
+    {
+        if (!is_array($programms)) {
+            $programms = [$programms];
+        }
+        $excluded = [];
+        foreach ($this->findByYear(['year' => $year], ['code' => 'ASC']) as $p) {
+            if (array_search($p->getCode(), $programms)===false) {
+                $excluded[] = $p;
+            }
+        }
+
+        return $excluded;
     }
 
 //    /**

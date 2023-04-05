@@ -72,6 +72,10 @@ class ReportIndexController extends AbstractController
                 'path' => 'app_report_privatization_conventions_integral_wait_'
             ],
             [
+                'title' => 'Convenios listas de espera diálisis',
+                'path' => 'app_report_privatization_conventions_dialisis_wait_'
+            ],
+            [
                 'title' => 'Arrendamientos',
                 'path' => 'app_report_renting_'
             ],
