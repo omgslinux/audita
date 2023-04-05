@@ -61,7 +61,7 @@ class ReportIndexController extends AbstractController
             ],
             [
                 'title' => 'Centralización de servicios',
-                'path' => 'app_report_services_central_'
+                'path' => 'app_report_privatization_services_central_'
             ],
             [
                 'title' => 'Convenios instituciones SFL',
