@@ -65,7 +65,7 @@ class ReportIndexController extends AbstractController
             ],
             [
                 'title' => 'Convenios instituciones SFL',
-                'path' => 'app_report_conventions_SFL_'
+                'path' => 'app_report_privatization_conventions_SFL_'
             ],
             [
                 'title' => 'Convenios listas de espera integral',
