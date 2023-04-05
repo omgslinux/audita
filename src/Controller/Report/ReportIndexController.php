@@ -117,11 +117,11 @@ class ReportIndexController extends AbstractController
             ],
             [
                 'title' => 'Proceso de datos',
-                'path' => 'app_report_data_processing_'
+                'path' => 'app_report_privatization_data_processing_'
             ],
             [
                 'title' => 'Conciertos con instituciones FJD y laboratorio',
-                'path' => 'app_report_FJD_laboratory_'
+                'path' => 'app_report_privatization_conventions_FJD_lab_'
             ],
         ]
     ];
