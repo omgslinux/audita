@@ -97,7 +97,7 @@ class ReportIndexController extends AbstractController
             ],
             [
                 'title' => 'Convenios entidades privadas SFL AECC, Cruz Roja',
-                'path' => 'app_report_private_SFL_organizations_'
+                'path' => 'app_report_privatization_private_SFL_organizations_'
             ],
             [
                 'title' => 'Hospitales model PPP',
