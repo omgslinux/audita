@@ -39,7 +39,7 @@ class ReportIndexController extends AbstractController
             ],
             [
                 'title' => 'Programas',
-                'path' => 'app_report_programmes_',
+                'path' => 'app_report_summary_bychapter_programm_',
             ],
             [
                 'title' => 'Clas. Económica - Detalle',

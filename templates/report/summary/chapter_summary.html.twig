@@ -21,7 +21,7 @@
     <table class="table table-bordered">
       <thead rowspan="2">
       <tr>
-        <th rowspan="2">Cap</th>
+  <th rowspan="2">{% if caption is not defined %}{% set caption = 'Cap' %}{% endif %}{{ caption }}</th>
         <th rowspan="2">Descripción</th>
         <th colspan="2">Presupuesto inicial</th>
         <th colspan="2">Presupuesto liquidado</th>
