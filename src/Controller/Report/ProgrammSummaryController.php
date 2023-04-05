@@ -36,18 +36,17 @@ class ProgrammSummaryController extends AbstractController
             'devPos' => 0,
             'devNeg' => 0
         ];
-        foreach ($PR->findByYear($budgetYear, ['code' => 'ASC']) as $programm) {
-            $totals['chapter'][$programm->getCode()] = [
-                'chapter' => $programm,
+        foreach ($PR->findByYear($budgetYear, ['code'=>'ASC']) as $chapter) {
+            $totals['chapter'][$chapter->getCode()] = [
+                'chapter' => $chapter,
                 'totalInit' => 0,
                 'totalCurrent' => 0,
                 'devPos' => 0,
                 'devNeg' => 0
             ];
         }
-        //$budgets = $bRepo->findByYear($budgetYear);
+
         $totalInit = $totalCurrent = $devPos = $devNeg = 0;
-        //foreach ($budgets as $budget) {
         foreach ($bRepo->findByYear($budgetYear) as $budget) {
             $chapter = $budget->getProgramm()->getCode();
             $init = $budget->getInitialCredit();
@@ -66,7 +65,6 @@ class ProgrammSummaryController extends AbstractController
             }
         }
         return $this->render('report/summary/chapter_summary.html.twig', [
-            //'budgets' => $budgets,
             'title' => $title,
             'h1' => $h1,
             'totals' => $totals,
