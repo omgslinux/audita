@@ -93,7 +93,7 @@ class ReportIndexController extends AbstractController
             ],
             [
                 'title' => 'Traslado ambulancias',
-                'path' => 'app_report_ambulance_transport_'
+                'path' => 'app_report_privatization_ambulance_transport_'
             ],
             [
                 'title' => 'Convenios entidades privadas SFL AECC, Cruz Roja',
