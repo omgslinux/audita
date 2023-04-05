@@ -156,26 +156,32 @@ class BudgetYearController extends AbstractController
                                 }
                             }
                             if ($_programm != $programmCode) {
-                                dump($programmCode, $programmDescription);
+                                //dump($_programm, $programmCode, $programmDescription);
                                 $_programm = trim($programmCode);
-                                $programm = $PGR->findOneByCode(
+                                $programm = $PGR->findOneBy(
                                     [
                                         'code' => $_programm,
                                         'year' => $entity
                                     ]
                                 );
                                 if (null==$programm) {
+                                    //dump("No se encuentra $_programm");
                                     $programm = new \App\Entity\Programm();
                                     $programm->setCode((string)$_programm)
                                     ->setDescription(trim($programmDescription))
                                     ->setYear($entity);
                                     $PGR->save($programm, true);
-                                }
+                                }//dump($programm);die();
                             }
                             if (!empty($items[4]) && strlen(trim($items[4]))) {
                                 $subCode = trim($items[4]);
                                 $subDescription = trim($items[5]);
-                                $subConcept = $SCR->findOneByCode($subCode);
+                                $subConcept = $SCR->findOneBy(
+                                    [
+                                        'year' => $entity,
+                                        'code' => $subCode
+                                    ]
+                                );
                                 dump($subCode, $subConcept);
                                 if (null==$subConcept) {
                                     $subConcept = new \App\Entity\Subconcept();
