@@ -39,7 +39,7 @@ class ReportIndexController extends AbstractController
             ],
             [
                 'title' => 'Programas',
-                'path' => 'app_report_summary_bychapter_programm_',
+                'path' => 'app_report_summary_by_programm_',
             ],
             [
                 'title' => 'Clas. Económica - Detalle',
@@ -47,7 +47,7 @@ class ReportIndexController extends AbstractController
             ],
             [
                 'title' => 'Centros gestores',
-                'path' => 'app_report_centers_',
+                'path' => 'app_report_summary_by_center_',
             ],
         ],
         'green' => [
