@@ -12,8 +12,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/report/privatization/conventionsSFL', name: 'app_report_privatization_conventions_SFL_')]
-class ConventionsSFLController extends AbstractController
+#[Route('/report/privatization/conventionsintegralwait', name: 'app_report_privatization_conventions_integral_wait_')]
+class ConventionsIntegralWaitController extends AbstractController
 {
 
     private $BIR;
@@ -38,7 +38,7 @@ class ConventionsSFLController extends AbstractController
     public function index(BudgetYear $budgetYear): Response
     {
         $year = $budgetYear->getYear()->format('Y');
-        $h1 = "Presupuestos $year: Convenios con instituciones sin fines de lucro";
+        $h1 = "Presupuestos $year: Convenios listas de espera integral";
         $title = "Comparación presupuesto inicial y liquidado $year";
         $caption = 'Concepto';
         $totinit =
@@ -51,7 +51,7 @@ class ConventionsSFLController extends AbstractController
         $totals = $totinit
         ;
         // Busacmos los programas del año para los totales del año
-        $progcodes = [];
+        $progcodes = ['312C'];
         if (count($progcodes)) {
             $progs = $this->PR->findBy(['year' => $budgetYear, 'code' => $progcodes], ['code' => 'ASC']);
         } else {
@@ -75,10 +75,11 @@ class ConventionsSFLController extends AbstractController
         ];
         $search =
         [
-            22802,
-            22803,
-            22809,
-
+            25205,
+            25704,
+            27005,
+            27100,
+            15304
         ];
         $subconcepts = $this->SCR->findBy(
             [

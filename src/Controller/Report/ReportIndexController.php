@@ -69,7 +69,7 @@ class ReportIndexController extends AbstractController
             ],
             [
                 'title' => 'Convenios listas de espera integral',
-                'path' => 'app_report_integral_await_'
+                'path' => 'app_report_privatization_conventions_integral_wait_'
             ],
             [
                 'title' => 'Arrendamientos',
