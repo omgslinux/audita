@@ -43,7 +43,7 @@ class ReportIndexController extends AbstractController
             ],
             [
                 'title' => 'Clas. Económica - Detalle',
-                'path' => 'app_report_budget_detail_',
+                'path' => 'app_report_summary_subconcept_detail_',
             ],
             [
                 'title' => 'Centros gestores',
