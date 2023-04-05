@@ -100,8 +100,8 @@ class ReportIndexController extends AbstractController
                 'path' => 'app_report_privatization_private_SFL_organizations_'
             ],
             [
-                'title' => 'Hospitales model PPP',
-                'path' => 'app_report_PPP_model_hospitals_'
+                'title' => 'Hospitales modelo PPP',
+                'path' => 'app_report_privatization_PPP_model_hospitals_'
             ],
             [
                 'title' => 'Gasto hospitales modelo PFI',
