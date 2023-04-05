@@ -81,7 +81,7 @@ class ReportIndexController extends AbstractController
             ],
             [
                 'title' => 'Gasto financiero',
-                'path' => 'app_report_financial_expenses_'
+                'path' => 'app_report_privatization_financial_expenses_'
             ],
             [
                 'title' => 'Instrumental material quirúrgico',
