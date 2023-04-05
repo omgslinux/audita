@@ -85,11 +85,11 @@ class ReportIndexController extends AbstractController
             ],
             [
                 'title' => 'Instrumental material quirúrgico',
-                'path' => 'app_report_surgeon_tools_'
+                'path' => 'app_report_privatization_surgeon_material_'
             ],
             [
                 'title' => 'Inversiones extra',
-                'path' => 'app_report_extra_investments_'
+                'path' => 'app_report_privatization_extra_investments_'
             ],
             [
                 'title' => 'Traslado ambulancias',
