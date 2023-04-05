@@ -105,7 +105,7 @@ class ReportIndexController extends AbstractController
             ],
             [
                 'title' => 'Gasto hospitales modelo PFI',
-                'path' => 'app_report_PFI_model_expenses_'
+                'path' => 'app_report_privatization_hospitals_PFI_expenses_'
             ],
             [
                 'title' => 'Canon hospitales modelo PFI',
@@ -113,7 +113,7 @@ class ReportIndexController extends AbstractController
             ],
             [
                 'title' => 'Productos farmacéuticos',
-                'path' => 'app_report_pharma_products_'
+                'path' => 'app_report_privatization_pharma_products_'
             ],
             [
                 'title' => 'Proceso de datos',
