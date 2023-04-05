@@ -11,8 +11,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/report/summary/publicThirdLevel', name: 'app_report_public_hospitalsL3_')]
-class PublicHospitalsL3SummaryController extends AbstractController
+#[Route('/report/summary/PFIHospitals', name: 'app_report_PFIHospitals_')]
+class HospitalsPFISummaryController extends AbstractController
 {
 
     #[Route('/', name: 'index', methods: ['POST'])]
@@ -26,7 +26,7 @@ class PublicHospitalsL3SummaryController extends AbstractController
     public function index(BudgetItemRepository $bRepo, MCR $MCR, BCR $BCR, BudgetYear $budgetYear): Response
     {
         $year = $budgetYear->getYear()->format('Y');
-        $h1 = "Presupuestos $year: Hospitales públicos nivel 3";
+        $h1 = "Presupuestos $year: Hospitales modelo PFI";
         $title = "Comparación presupuesto inicial y liquidado $year";
         $totals = [
             'chapter' =>
@@ -62,7 +62,7 @@ class PublicHospitalsL3SummaryController extends AbstractController
         $centers = $MCR->findBy(
             [
                 'year' => $budgetYear,
-                'description' => $hospitals['L3'],
+                'description' => $hospitals['PFI'],
             ]
         );
         // Necesitamos las descripciones de los capítulos
