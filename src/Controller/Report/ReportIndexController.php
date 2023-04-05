@@ -77,7 +77,7 @@ class ReportIndexController extends AbstractController
             ],
             [
                 'title' => 'Arrendamientos',
-                'path' => 'app_report_renting_'
+                'path' => 'app_report_privatization_renting_'
             ],
             [
                 'title' => 'Gasto financiero',
