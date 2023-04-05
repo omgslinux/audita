@@ -57,7 +57,7 @@ class ReportIndexController extends AbstractController
             ],
             [
                 'title' => 'Trabajos otras empresas',
-                'path' => 'app_report_other_companies_'
+                'path' => 'app_report_privatization_other_companies_'
             ],
             [
                 'title' => 'Centralización de servicios',
