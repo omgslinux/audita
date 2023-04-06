@@ -204,7 +204,7 @@ class ReportController extends AbstractController
     public function getSubconcepts($search, BudgetYear $year = null): array
     {
         $year = (null!=$year?$year:$this->year);
-        $items = $this->getItems($year, $search, $this->SCR);
+        $items = $this->getItems($search, $this->SCR, $year);
         $this->captiontotal =
         [
             'caption' => [],
@@ -226,8 +226,8 @@ class ReportController extends AbstractController
         foreach ($this->BIR->findBy(
             [
                 'year' => $year,
-                'programm' => $this->getProgs($year, $this->search['progs']),
-                'subconcept' => $this->getSubconcepts($year, $this->search['subconcepts'])
+                'programm' => $this->getProgs($this->search['progs']),
+                'subconcept' => $this->getSubconcepts($this->search['subconcepts'])
             ]
         ) as $budget) {
             $subconcept = $budget->getSubconcept();
@@ -268,6 +268,7 @@ class ReportController extends AbstractController
             [
                 'year' => $year,
                 'programm' => $this->getProgs($this->search['progs']),
+                'subconcept' => $this->getSubconcepts($this->search['subconcepts']),
                 'center' => $this->getCenters($this->search['centers'])
             ]
         ) as $budget) {
@@ -304,6 +305,9 @@ class ReportController extends AbstractController
     public function setCenters($codes, $exclude = false, BudgetYear $year = null): self
     {
         $year = (null!=$year?$year:$this->year);
+        if (!is_array($codes)) {
+            $codes = [$codes];
+        }
         $this->search['centers'] = [
             'codes' => $codes,
             'exclude' => $exclude
@@ -326,6 +330,9 @@ class ReportController extends AbstractController
 
     public function setProgrammes($codes, $exclude = false): self
     {
+        if (!is_array($codes)) {
+            $codes = [$codes];
+        }
         $this->search['progs'] = [
             'codes' => $codes,
             'exclude' => $exclude
@@ -336,6 +343,9 @@ class ReportController extends AbstractController
 
     public function setSubconcepts($codes, $exclude = false): self
     {
+        if (!is_array($codes)) {
+            $codes = [$codes];
+        }
         $this->search['subconcepts'] = [
             'codes' => $codes,
             'exclude' => $exclude

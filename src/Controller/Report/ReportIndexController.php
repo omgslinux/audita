@@ -109,7 +109,7 @@ class ReportIndexController extends AbstractController
             ],
             [
                 'title' => 'Canon hospitales modelo PFI',
-                'path' => 'app_report_PFI_model_canon_'
+                'path' => 'app_report_privatization_hospitals_PFI_canon_'
             ],
             [
                 'title' => 'Productos farmacéuticos',
