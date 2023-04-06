@@ -39,6 +39,22 @@ class ManagementCenterRepository extends ServiceEntityRepository
         }
     }
 
+    public function findByYearExcept(BudgetYear $year, $items): array
+    {
+        if (!is_array($items)) {
+            $items = [$items];
+        }
+        $excluded = [];
+        foreach ($this->findByYear(['year' => $year], ['code' => 'ASC']) as $item) {
+            if (array_search($item->getCode(), $items)===false) {
+                $excluded[] = $item;
+            }
+        }
+
+        return $excluded;
+    }
+
+
 //    /**
 //     * @return ManagementCenter[] Returns an array of ManagementCenter objects
 //     */

@@ -40,7 +40,7 @@ class ProgrammRepository extends ServiceEntityRepository
         }
     }
 
-    public function findByYearExceptProgramms(BudgetYear $year, $programms): array
+    public function findByYearExcept(BudgetYear $year, $programms): array
     {
         if (!is_array($programms)) {
             $programms = [$programms];
@@ -53,6 +53,11 @@ class ProgrammRepository extends ServiceEntityRepository
         }
 
         return $excluded;
+    }
+
+    public function findByYearExceptProgramms(BudgetYear $year, $programms): array
+    {
+        return $this->findByYearExcept($year, $programms);
     }
 
 //    /**
