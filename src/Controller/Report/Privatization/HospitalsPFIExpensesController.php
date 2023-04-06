@@ -20,13 +20,6 @@ class HospitalsPFIExpensesController extends AbstractController
     private $SCR;
     private $PR;
 
-    public function __construct(BudgetItemRepository $BIR, SCR $SCR, PR $PR)
-    {
-        $this->BIR = $BIR;
-        $this->SCR = $SCR;
-        $this->PR = $PR;
-    }
-
     #[Route('/', name: 'index', methods: ['POST'])]
     public function postIndex(Request $request): Response
     {
@@ -35,6 +28,27 @@ class HospitalsPFIExpensesController extends AbstractController
     }
 
     #[Route('/{id}/show', name: 'show', methods: ['GET'])]
+    public function show(ReportController $report, BudgetYear $budgetYear): Response
+    {
+        $year = $budgetYear->getYear()->format('Y');
+        $h1 = "Presupuestos $year: Gastos hospitales modelo PFI";
+        $title = "Comparación presupuesto inicial y liquidado $year";
+        $caption = 'Concepto';
+        $report->setYear($budgetYear);
+        //$report->setSubconcepts($search);
+        //$totals = $report->getTotalsFromSub($budgetYear);
+        $report->setHospitals('PFI');
+        //$report->setCenters($report->getCodesByDescription($report->getHospitals()));
+        $totals = $report->getTotalsFromCenter($budgetYear);
+
+        return $this->render('report/summary/privatization_common.html.twig', [
+            'title' => $title,
+            'h1' => $h1,
+            'totals' => $totals,
+            'caption' => $caption,
+        ]);
+    }
+
     public function index(BudgetYear $budgetYear): Response
     {
         $year = $budgetYear->getYear()->format('Y');
