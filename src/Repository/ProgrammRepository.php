@@ -55,11 +55,6 @@ class ProgrammRepository extends ServiceEntityRepository
         return $excluded;
     }
 
-    public function findByYearExceptProgramms(BudgetYear $year, $programms): array
-    {
-        return $this->findByYearExcept($year, $programms);
-    }
-
 //    /**
 //     * @return Programm[] Returns an array of Programm objects
 //     */
