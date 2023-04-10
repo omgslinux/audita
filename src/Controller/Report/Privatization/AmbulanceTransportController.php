@@ -29,18 +29,11 @@ class AmbulanceTransportController extends AbstractController
         $h1 = "Presupuestos $year: Traslado ambulancias";
         $title = "Comparación presupuesto inicial y liquidado $year";
         $caption = 'Concepto';
-        $report->setYear($budgetYear);
-        $report->setSubconcepts(
-            [
-            25501,
-            25502,
-            25503,
-            ],
-        );
-        $totals = $report->getTotalsFromSub($budgetYear);
-        //$report->setHospitals('PPP');
-        //$report->setCenters($report->getCodesByDescription($report->getHospitals()));
-        //$totals = $report->getTotalsFromCenter($budgetYear);
+        $this->report = $report;
+        //self::$report->setYear($budgetYear);
+        $this->report->setYear($budgetYear);
+        //$totals = $report->getTotalsFromSub($budgetYear);
+        $totals = $this->calc();
 
         return $this->render('report/summary/privatization_common.html.twig', [
             'title' => $title,
@@ -48,5 +41,30 @@ class AmbulanceTransportController extends AbstractController
             'totals' => $totals,
             'caption' => $caption,
         ]);
+    }
+
+    public static function getItems(): array
+    {
+        $items = [
+            'subconcepts' =>[
+                'codes' =>
+                [
+                    25501,
+                    25502,
+                    25503,
+                ],
+                'exclude' => false
+            ]
+        ];
+
+        return $items;
+    }
+
+    public function calc(): array
+    {
+        $items = $this->getItems();
+        $this->report->setSubconcepts($items['subconcepts']['codes']);
+
+        return $this->report->getTotalsFromSub();
     }
 }

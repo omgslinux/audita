@@ -30,8 +30,9 @@ class ReportController extends AbstractController
             'devPos' => 0,
             'devNeg' => 0
         ];
+    private $search;
     private $year=null;
-    private $search =
+    const SEARCH =
         [
             'subconcepts' =>
             [
@@ -91,6 +92,8 @@ class ReportController extends AbstractController
         $this->MCR = $MCR;
         $this->SCR = $SCR;
         $this->PR = $PR;
+
+        $this->search = self::SEARCH;
     }
 
     public function index(BudgetYear $budgetYear, MCR $MCR): Response
@@ -123,6 +126,11 @@ class ReportController extends AbstractController
             'totals' => $totals,
             'caption' => $caption,
         ]);
+    }
+
+    public function initSearch()
+    {
+        $this->search = self::SEARCH;
     }
 
     private function getCenters($search, BudgetYear $year = null): array
@@ -201,6 +209,11 @@ class ReportController extends AbstractController
         return $items;
     }
 
+    public function getSearch(): array
+    {
+        return $this->search;
+    }
+
     public function getSubconcepts($search, BudgetYear $year = null): array
     {
         $year = (null!=$year?$year:$this->year);
@@ -219,8 +232,9 @@ class ReportController extends AbstractController
         return $items;
     }
 
-    public function getTotalsFromSub(BudgetYear $year): array
+    public function getTotalsFromSub(BudgetYear $year = null): array
     {
+        $year = (null!=$year?$year:$this->year);
         $totals = $this->totinit;
         $totalInit = $totalCurrent = $devPos = $devNeg = 0;
         foreach ($this->BIR->findBy(
@@ -260,8 +274,9 @@ class ReportController extends AbstractController
         return $totals;
     }
 
-    public function getTotalsFromCenter(BudgetYear $year): array
+    public function getTotalsFromCenter(BudgetYear $year = null): array
     {
+        $year = (null!=$year?$year:$this->year);
         $totals = $this->totinit;
         $totalInit = $totalCurrent = $devPos = $devNeg = 0;
         foreach ($this->BIR->findBy(

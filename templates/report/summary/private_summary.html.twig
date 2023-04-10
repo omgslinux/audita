@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block body %}
+<style>
+    table,th,td {
+        font-size: 0.7rem;
+        font-family: sans-serif;
+    }
+    th {
+        text-align: center;
+        background-color: blue;
+        color: white;
+        font: 1.5rem;
+        font-weight: bolder;
+    }
+</style>
+    <h1>{{ h1 }}</h1>
+
+    <table class="table table-bordered">
+      <thead>
+      <tr>
+        <th>Descripción</th>
+        <th>Presupuesto inicial</th>
+        <th>Presupuesto liquidado</th>
+        <th>Desviación neta</th>
+        <th>Desviación en más</th>
+        <th>Desviación en menos</th>
+      </tr>
+      </thead>
+      <tbody>
+        {% set totalInit = 0 %}{% set totalCurrent = 0 %}{% set totalDevPos = 0 %}{% set totalDevNeg = 0 %}
+        {% for chapter in totals %}
+        {% set totalInit = totalInit + chapter.totals.totalInit %}
+        {% set totalCurrent = totalCurrent + chapter.totals.totalCurrent %}
+          <tr>
+            <td>{{ chapter.title }}</td>
+            <td class="text-right">{{ chapter.totals.totalInit|number_format(2, ',', '.') }}&nbsp;€</td>
+            <td class="text-right">{{ chapter.totals.totalCurrent|number_format(2, ',', '.') }}&nbsp;€</td>
+            <td class="col-2 border text-right">{{ (chapter.totals.totalCurrent - chapter.totals.totalInit)|number_format(2, ',', '.') }}&nbsp;€</td>
+            <td class="col-2 border text-right">{{ chapter.totals.devPos|number_format(2, ',', '.') }}&nbsp;€</td>
+            <td class="col-2 border text-right">{{ chapter.totals.devNeg|number_format(2, ',', '.') }}&nbsp;€</td>
+          </tr>
+        {% endfor %}
+        <tr class="bg-primary font-weight-bold">
+            <td>TOTAL</td>
+            <td class="text-right">{{ totalInit|number_format(2, ',', '.') }}&nbsp;€</td>
+            <td class="text-right">{{ totalCurrent|number_format(2, ',', '.') }}&nbsp;€</td>
+            <td class="col-2 border text-right">{{ (totalCurrent - totalInit)|number_format(2, ',', '.') }}&nbsp;€</td>
+            <td class="col-2 border text-right">{{ totalDevPos|number_format(2, ',', '.') }}&nbsp;€</td>
+            <td class="col-2 border text-right">{{ totalDevNeg|number_format(2, ',', '.') }}&nbsp;€</td>
+        </tr>
+      </tbody>
+    </table>
+
+{% endblock %}

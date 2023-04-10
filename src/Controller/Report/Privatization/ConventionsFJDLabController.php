@@ -29,7 +29,7 @@ class ConventionsFJDLabController extends AbstractController
         $h1 = "Presupuestos $year: Conciertos con instituciones, FJD y laboratorio";
         $title = "Comparación presupuesto inicial y liquidado $year";
         $caption = 'Concepto';
-        $report->setYear($budgetYear);
+        /*$report->setYear($budgetYear);
         $report->setSubconcepts(
             [
                 25202,
@@ -38,10 +38,13 @@ class ConventionsFJDLabController extends AbstractController
                 25704,
             ],
         );
-        $totals = $report->getTotalsFromSub($budgetYear);
+        $totals = $report->getTotalsFromSub($budgetYear);*/
         //$report->setHospitals('PPP');
         //$report->setCenters($report->getCodesByDescription($report->getHospitals()));
         //$totals = $report->getTotalsFromCenter($budgetYear);
+        $this->report = $report;
+        $this->report->setYear($budgetYear);
+        $totals = $this->calc();
 
         return $this->render('report/summary/privatization_common.html.twig', [
             'title' => $title,
@@ -49,5 +52,49 @@ class ConventionsFJDLabController extends AbstractController
             'totals' => $totals,
             'caption' => $caption,
         ]);
+    }
+
+    public static function getItems(): array
+    {
+        $items = [
+            'subconcepts' =>[
+                'codes' =>
+                [
+                    25202,
+                    25205,
+                    25209,
+                    25704,
+                ],
+                'exclude' => false
+            ],
+            'progs' =>[
+                'codes' =>
+                [
+                    //'312C'
+                ],
+                'exclude' => false
+            ],
+        ];
+
+        return $items;
+    }
+
+    public function calc(): array
+    {
+        $items = $this->getItems();
+        $this->report->setSubconcepts($items['subconcepts']['codes']);
+        if (!empty($items['progs']['codes'])) {
+            $this->report->setProgrammes($items['progs']['codes'], $items['progs']['exclude']);
+        }
+        if (!empty($items['subconcepts']['codes'])) {
+            $this->report->setSubconcepts($items['subconcepts']['codes'], $items['subconcepts']['exclude']);
+            $t = $this->report->getTotalsFromSub();
+        }
+        if (!empty($items['centers']['codes'])) {
+            $this->report->setCenters($items['centers']['codes'], $items['centers']['exclude']);
+            $t = $this->report->getTotalsFromCenter();
+        }
+
+        return $t;
     }
 }

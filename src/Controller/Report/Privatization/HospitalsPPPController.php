@@ -16,6 +16,8 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/report/privatization/hospitalsppp', name: 'app_report_privatization_PPP_model_hospitals_')]
 class HospitalsPPPController extends AbstractController
 {
+    private $report;
+
     #[Route('/', name: 'index', methods: ['POST'])]
     public function postIndex(Request $request): Response
     {
@@ -30,16 +32,11 @@ class HospitalsPPPController extends AbstractController
         $h1 = "Presupuestos $year: Hospitales modelo PPP";
         $title = "Comparación presupuesto inicial y liquidado $year";
         $caption = 'Concepto';
-        $report->setYear($budgetYear);
-        $report->setSubconcepts(
-            [
-                25200,
-                25206,
-                25208,
-                25210,
-            ],
-        );
-        $totals = $report->getTotalsFromSub($budgetYear);
+        $this->report = $report;
+        //self::$report->setYear($budgetYear);
+        $this->report->setYear($budgetYear);
+        //$totals = $report->getTotalsFromSub();
+        $totals = $this->calc();
         //$report->setHospitals('PPP');
         //$report->setCenters($report->getCodesByDescription($report->getHospitals()));
         //$totals = $report->getTotalsFromCenter($budgetYear);
@@ -50,5 +47,47 @@ class HospitalsPPPController extends AbstractController
             'totals' => $totals,
             'caption' => $caption,
         ]);
+    }
+
+    public static function getItems(): array
+    {
+        $items = [
+            'subconcepts' =>[
+            'codes' =>
+                [
+                    25200,
+                    25206,
+                    25208,
+                    25210,
+                ],
+            'exclude' => false
+            ]
+        ];
+
+        return $items;
+    }
+
+    public function calc(): array
+    {
+        $items = $this->getItems();
+        $this->report->setSubconcepts($items['subconcepts']['codes']);
+        if (!empty($items['progs']['codes'])) {
+            $this->report->setProgrammes($items['progs']['codes'], $items['progs']['exclude']);
+        }
+        if (!empty($items['subconcepts']['codes'])) {
+            $this->report->setSubconcepts($items['subconcepts']['codes'], $items['subconcepts']['exclude']);
+            $t = $this->report->getTotalsFromSub();
+        }
+        if (!empty($items['centers'])) {
+            if (!empty($items['centers']['codes'])) {
+                $this->report->setCenters($items['centers']['codes'], $items['centers']['exclude']);
+            }
+            if (!empty($items['centers']['type'])) {
+                $this->report->setHospitals($items['centers']['type'], $items['centers']['exclude']);
+            }
+            $t = $this->report->getTotalsFromCenter();
+        }
+
+        return $t;
     }
 }

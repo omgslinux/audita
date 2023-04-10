@@ -53,7 +53,7 @@ class ReportIndexController extends AbstractController
         'green' => [
             [
                 'title' => 'Informe papel sector privado',
-                'path' => 'app_report_private_role_'
+                'path' => 'app_report_privatization_private_sector_summary_'
             ],
             [
                 'title' => 'Trabajos otras empresas',
