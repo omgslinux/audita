@@ -116,7 +116,8 @@ class PrivateSectorSummaryController extends AbstractController
                 'controller' => 'HospitalsPPP',
             ],
             [
-                'title' => 'CONCIERTOS CON INSTITUCIONES SANITARIAS: FUNDACIÓN JIMÉNEZ DÍAZ, LABORATORIO CLÍNICO CENTRAL',
+                'title' => 'CONCIERTOS CON INSTITUCIONES SANITARIAS: '.
+                'FUNDACIÓN JIMÉNEZ DÍAZ, LABORATORIO CLÍNICO CENTRAL',
                 'controller' => 'ConventionsFJDLab',
             ],
             [

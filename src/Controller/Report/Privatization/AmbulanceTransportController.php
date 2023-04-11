@@ -63,9 +63,6 @@ class AmbulanceTransportController extends AbstractController
 
     public function calc(): array
     {
-        $items = $this->getItems();
-        $this->report->setSubconcepts($items['subconcepts']['codes']);
-
-        return $this->report->getTotalsFromSub();
+        return $this->report->getTotalsFromItems($this->getItems());
     }
 }

@@ -92,22 +92,9 @@ class ConventionsDialisisWaitController extends AbstractController
         return $items;
     }
 
+
     public function calc(): array
     {
-        $items = $this->getItems();
-        $this->report->setSubconcepts($items['subconcepts']['codes']);
-        if (!empty($items['progs']['codes'])) {
-            $this->report->setProgrammes($items['progs']['codes'], $items['progs']['exclude']);
-        }
-        if (!empty($items['subconcepts']['codes'])) {
-            $this->report->setSubconcepts($items['subconcepts']['codes'], $items['subconcepts']['exclude']);
-            $t = $this->report->getTotalsFromSub();
-        }
-        if (!empty($items['centers']['codes'])) {
-            $this->report->setCenters($items['centers']['codes'], $items['centers']['exclude']);
-            $t = $this->report->getTotalsFromCenter();
-        }
-
-        return $t;
+        return $this->report->getTotalsFromItems($this->getItems());
     }
 }

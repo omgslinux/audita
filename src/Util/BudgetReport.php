@@ -317,6 +317,30 @@ class BudgetReport extends AbstractController
         return $totals;
     }
 
+    public function getTotalsFromItems($items): array
+    {
+        $this->setSubconcepts($items['subconcepts']['codes']);
+        if (!empty($items['progs']['codes'])) {
+            $this->setProgrammes($items['progs']['codes'], $items['progs']['exclude']);
+        }
+        if (!empty($items['subconcepts']['codes'])) {
+            $this->setSubconcepts($items['subconcepts']['codes'], $items['subconcepts']['exclude']);
+            $t = $this->getTotalsFromSub();
+        }
+        if (!empty($items['centers'])) {
+            if (!empty($items['centers']['codes'])) {
+                $this->setCenters($items['centers']['codes'], $items['centers']['exclude']);
+                $t = $this->getTotalsFromCenter();
+            }
+            if (!empty($items['centers']['type'])) {
+                $this->setHospitals($items['centers']['type'], $items['centers']['exclude']);
+                $t = $this->getTotalsFromCenter();
+            }
+        }
+
+        return $t;
+    }
+
     public function setCenters($codes, $exclude = false, BudgetYear $year = null): self
     {
         $year = (null!=$year?$year:$this->year);
