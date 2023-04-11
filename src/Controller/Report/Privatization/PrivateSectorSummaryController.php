@@ -18,6 +18,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class PrivateSectorSummaryController extends AbstractController
 {
     private $report;
+
     public function __construct(BudgetReport $report)
     {
         //self::$report = $report;

@@ -16,6 +16,8 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/report/privatization/conventionsintegralwait', name: 'app_report_privatization_conventions_integral_wait_')]
 class ConventionsIntegralWaitController extends AbstractController
 {
+    private $report;
+
     #[Route('/', name: 'index', methods: ['POST'])]
     public function postIndex(Request $request): Response
     {

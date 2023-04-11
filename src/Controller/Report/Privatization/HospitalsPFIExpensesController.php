@@ -16,6 +16,8 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/report/privatization/hospitalspfiexpenses', name: 'app_report_privatization_hospitals_PFI_expenses_')]
 class HospitalsPFIExpensesController extends AbstractController
 {
+    private $report;
+
     #[Route('/', name: 'index', methods: ['POST'])]
     public function postIndex(Request $request): Response
     {

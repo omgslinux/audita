@@ -16,6 +16,8 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/report/privatization/servicecentralization', name: 'app_report_privatization_services_central_')]
 class ServiceCentralizationController extends AbstractController
 {
+    private $report;
+
     #[Route('/', name: 'index', methods: ['POST'])]
     public function postIndex(Request $request): Response
     {
@@ -89,7 +91,7 @@ class ServiceCentralizationController extends AbstractController
 
         return $items;
     }
-    
+
     public function calc(): array
     {
         return $this->report->getTotalsFromItems($this->getItems());
