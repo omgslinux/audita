@@ -36,26 +36,20 @@
             <td>{{ object.item.code }}</td>
             <td>{{ object.item.description }}</td>
             <td class="text-right">{{ object.total.totalInit|number_format(2, ',', '.') }}&nbsp;€</td>
-            {#<td>{{ (object.totalInit * 100 / totals.totalInit)|number_format(2,  ',', '.') }}%</td>#}
             <td class="text-right">{{ object.total.totalCurrent|number_format(2, ',', '.') }}&nbsp;€</td>
-            {#<td>{{ totals.totalCurrent>0?(object.totalCurrent * 100 / totals.totalCurrent)|number_format(2,  ',', '.') ~ '%':'--' }}</td>#}
-            <td class="col-2 border text-right">{{ (object.total.totalCurrent - object.total.totalInit)|number_format(2, ',', '.') }}&nbsp;€</td>
-            {#<td>{{ ((object.totalCurrent - object.totalInit) / (totals.totalCurrent - totals.totalInit) * 100)|number_format(2,  ',', '.') }}%</td>#}
-            <td class="col-2 border text-right">{{ object.total.devPos|number_format(2, ',', '.') }}&nbsp;€</td>
-            <td class="col-2 border text-right">{{ object.total.devNeg|number_format(2, ',', '.') }}&nbsp;€</td>
+            {% set result = object.total.totalCurrent - object.total.totalInit %}<td class="col-2 border {{ (result<0?'text-danger ':'') }}text-right">{{ result|number_format(2, ',', '.') }}&nbsp;€</td>
+            {% set result = object.total.devPos %}<td class="col-2 border {{ (result<0?'text-danger ':'') }}text-right">{{ result|number_format(2, ',', '.') }}&nbsp;€</td>
+            {% set result = object.total.devNeg %}<td class="col-2 border {{ (result<0?'text-danger ':'') }}text-right">{{ result|number_format(2, ',', '.') }}&nbsp;€</td>
           </tr>
         {% endfor %}
         <tr class="bg-primary font-weight-bold">
             <td></td>
             <td>TOTAL</td>
             <td class="text-right">{{ totals.totalInit|number_format(2, ',', '.') }}&nbsp;€</td>
-            {#<td>{{ (totals.totalInit * 100 / totals.totalInit)|number_format(2,  ',', '.') }}%</td>#}
             <td class="text-right">{{ totals.totalCurrent|number_format(2, ',', '.') }}&nbsp;€</td>
-            {#<td>{{ totals.totalCurrent>0 ? (totals.totalCurrent * 100 / totals.totalCurrent)|number_format(2,  ',', '.') ~ '%' : '--' }}</td>#}
-            <td class="col-2 border text-right">{{ (totals.totalCurrent - totals.totalInit)|number_format(2, ',', '.') }}&nbsp;€</td>
-            {#<td>{{ ((totals.totalCurrent - totals.totalInit) / (totals.totalCurrent - totals.totalInit) * 100)|number_format(2,  ',', '.') }}%</td>#}
-            <td class="col-2 border text-right">{{ totals.devPos|number_format(2, ',', '.') }}&nbsp;€</td>
-            <td class="col-2 border text-right">{{ totals.devNeg|number_format(2, ',', '.') }}&nbsp;€</td>
+            {% set result = totals.totalCurrent - totals.totalInit %}<td class="col-2 border {{ (result<0?'text-dangerX ':'') }}text-right">{{ result|number_format(2, ',', '.') }}&nbsp;€</td>
+            {% set result = totals.devPos %}<td class="col-2 border {{ (result<0?'text-dangerX ':'') }}text-right">{{ result|number_format(2, ',', '.') }}&nbsp;€</td>
+            {% set result = totals.devPos %}<td class="col-2 border {{ (result<0?'text-dangerX ':'') }}text-right">{{ result|number_format(2, ',', '.') }}&nbsp;€</td>
         </tr>
       </tbody>
     </table>
@@ -81,9 +75,9 @@
             <td>{{ object.item.description }}</td>
             <td class="text-right">{{ object.total.totalInit|number_format(2, ',', '.') }}&nbsp;€</td>
             <td class="text-right">{{ object.total.totalCurrent|number_format(2, ',', '.') }}&nbsp;€</td>
-            <td class="col-2 border text-right">{{ (object.total.totalCurrent - object.total.totalInit)|number_format(2, ',', '.') }}&nbsp;€</td>
-            <td class="col-2 border text-right">{{ object.total.devPos|number_format(2, ',', '.') }}&nbsp;€</td>
-            <td class="col-2 border text-right">{{ object.total.devNeg|number_format(2, ',', '.') }}&nbsp;€</td>
+            {% set result = object.total.totalCurrent - object.total.totalInit %}<td class="col-2 border {{ (result<0?'text-danger ':'') }}text-right">{{ result|number_format(2, ',', '.') }}&nbsp;€</td>
+            {% set result = object.total.devPos %}<td class="col-2 border {{ (result<0?'text-danger ':'') }}text-right">{{ result|number_format(2, ',', '.') }}&nbsp;€</td>
+            {% set result = object.total.devNeg %}<td class="col-2 border {{ (result<0?'text-danger ':'') }}text-right">{{ result|number_format(2, ',', '.') }}&nbsp;€</td>
           </tr>
         {% endif %}
         {% endfor %}
