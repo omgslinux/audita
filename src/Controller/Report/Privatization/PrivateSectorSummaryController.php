@@ -8,6 +8,7 @@ use App\Repository\BudgetItemRepository;
 use App\Repository\ManagementCenterRepository as MCR;
 use App\Repository\ProgrammRepository as PR;
 use App\Repository\SubconceptRepository as SCR;
+use App\Util\BudgetReport;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,7 +18,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class PrivateSectorSummaryController extends AbstractController
 {
     private $report;
-    public function __construct(ReportController $report)
+    public function __construct(BudgetReport $report)
     {
         //self::$report = $report;
         $this->report = $report;

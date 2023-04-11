@@ -7,6 +7,7 @@ use App\Repository\BudgetChapterRepository;
 use App\Repository\BudgetItemRepository;
 use App\Repository\ProgrammRepository as PR;
 use App\Repository\SubconceptRepository as SCR;
+use App\Util\BudgetReport;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,7 +24,7 @@ class ConventionsSFLController extends AbstractController
     }
 
     #[Route('/{id}/show', name: 'show', methods: ['GET'])]
-    public function show(ReportController $report, BudgetYear $budgetYear): Response
+    public function show(BudgetReport $report, BudgetYear $budgetYear): Response
     {
         $year = $budgetYear->getYear()->format('Y');
         $h1 = "Presupuestos $year: Convenios con instituciones sin fines de lucro";

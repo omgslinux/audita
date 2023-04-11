@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\Report\Privatization;
+namespace App\Util;
 
 use App\Entity\BudgetYear;
 use App\Repository\BudgetChapterRepository;
@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class ReportController extends AbstractController
+class BudgetReport extends AbstractController
 {
 
     private $BIR;
