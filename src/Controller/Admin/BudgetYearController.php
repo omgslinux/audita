@@ -31,7 +31,7 @@ class BudgetYearController extends AbstractController
     public function index(): Response
     {
         return $this->render('budget_year/index.html.twig', [
-            'budget_years' => $this->repo->findAll(),
+            'budget_years' => $this->repo->findAllSorted(),
             'PREFIX' => self::PREFIX,
         ]);
     }

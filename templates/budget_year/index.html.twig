@@ -10,6 +10,8 @@
             <tr>
                 <th>Year</th>
                 <th>Registros</th>
+                <th>Presupuesto inicial</th>
+                <th>Variación IPC</th>
             </tr>
         </thead>
         <tbody>
@@ -17,6 +19,8 @@
             <tr>
                 <td><a href="{{ path(PREFIX ~ 'show', {'id': year.id}) }}">{{ year.year ? year.year|date('Y') : '' }}</td>
                 <td>{% set num = year.budgetItems|length %}{{ (num>0?num:'No hay registros') }}</td>
+                <td>{{ year.initialBudget|number_format(2, ',',',')}}€</td>
+                <td>{{ year.ipcVariation|number_format(2, ',', '.') }}%</td>
             </tr>
         {% else %}
             <tr>

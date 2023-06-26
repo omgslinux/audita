@@ -20,6 +20,8 @@ class BudgetYearType extends AbstractType
                 'label' => 'Año',
             ]
         )
+        ->add('ipcVariation')
+        ->add('initialBudget')
         ;
     }
 

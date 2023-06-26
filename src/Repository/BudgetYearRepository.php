@@ -39,6 +39,32 @@ class BudgetYearRepository extends ServiceEntityRepository
         }
     }
 
+   /**
+    * @return BudgetYear[] Returns an array of BudgetYear objects
+    */
+    public function findAllSorted(): array
+    {
+        return $this->createQueryBuilder('b')
+           ->orderBy('b.year', 'ASC')
+           ->getQuery()
+           ->getResult()
+           ;
+    }
+
+   /**
+    * @return BudgetYear[] Returns an array of BudgetYear objects
+    */
+    public function findAllBudgetSorted(): array
+    {
+        return $this->createQueryBuilder('b')
+           ->orderBy('b.year', 'ASC')
+           ->andWhere('b.budgetItems > 0')
+           ->getQuery()
+           ->getResult()
+           ;
+    }
+
+//    public function findOneBySomeField($value): ?BudgetYear
 //    /**
 //     * @return BudgetYear[] Returns an array of BudgetYear objects
 //     */

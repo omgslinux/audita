@@ -35,6 +35,12 @@ class BudgetYear
     #[ORM\OneToMany(mappedBy: 'year', targetEntity: BudgetItem::class)]
     private Collection $budgetItems;
 
+    #[ORM\Column(type: Types::DECIMAL, precision: 5, scale: 2)]
+    private ?string $ipcVariation = null;
+
+    #[ORM\Column]
+    private ?float $initialBudget = null;
+
     public function __construct()
     {
         $this->managementCenters = new ArrayCollection();
@@ -180,8 +186,32 @@ class BudgetYear
         return $this;
     }
 
+    public function getIpcVariation(): ?string
+    {
+        return $this->ipcVariation;
+    }
+
+    public function setIpcVariation(string $ipcVariation): self
+    {
+        $this->ipcVariation = $ipcVariation;
+
+        return $this;
+    }
+
     public function __toString()
     {
         return $this->getYear()->format('Y');
+    }
+
+    public function getInitialBudget(): ?float
+    {
+        return $this->initialBudget;
+    }
+
+    public function setInitialBudget(float $initialBudget): self
+    {
+        $this->initialBudget = $initialBudget;
+
+        return $this;
     }
 }
