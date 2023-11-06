@@ -72,9 +72,9 @@
               </tbody>
             </table>
         {% endfor %}
-        <table>
+        <table class="table table-bordered">
         <tr class="bg-primary font-weight-bold">
-            <td>TOTAL</td>
+            <td class="col-2">TOTAL</td>
             <td class="text-right">{{ itemtotals.totalInit|number_format(2, ',', '.') }}&nbsp;€</td>
             <td>{{ itemtotals.totalInit>0?(itemtotals.totalInit * 100 / itemtotals.totalInit)|number_format(2,  ',', '.'):'--' }}%</td>
             <td class="text-right">{{ itemtotals.totalCurrent|number_format(2, ',', '.') }}&nbsp;€</td>

@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/report/summary/investments', name: 'app_report_chapter1_')]
+#[Route('/report/summary/chapter1', name: 'app_report_chapter1_')]
 class ChapterOneSummaryController extends AbstractController
 {
 
