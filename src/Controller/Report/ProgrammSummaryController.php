@@ -64,7 +64,7 @@ class ProgrammSummaryController extends AbstractController
                 $totals['devNeg'] += $deviation;
             }
         }
-        return $this->render('report/summary/chapter_summary.html.twig', [
+        return $this->render('report/summary/programm_summary.html.twig', [
             'title' => $title,
             'h1' => $h1,
             'totals' => $totals,

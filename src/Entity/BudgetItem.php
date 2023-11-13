@@ -68,6 +68,12 @@ class BudgetItem
         return $this;
     }
 
+    public function getChapter(): ?int
+    {
+        return $this->getSubconcept()->getChapter();
+    }
+
+
     public function getProgramm(): ?Programm
     {
         return $this->programm;

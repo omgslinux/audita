@@ -105,6 +105,7 @@ class ExtraInvestmentsController extends AbstractController
             'subconcepts' =>[
                 'codes' =>
                 [
+                    62100,
                     62101,
                     62105,
                     62300,

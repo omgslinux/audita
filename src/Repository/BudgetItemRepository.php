@@ -61,6 +61,63 @@ class BudgetItemRepository extends ServiceEntityRepository
         return $qb->getResult();
     }
 
+    public function findByCenterCode($code): array
+    {
+        $qb = $this->createQueryBuilder('b')
+            ->join('b.center', 's')
+            ->andWhere('s.code = :code')
+            ->setParameter('code', $code)
+            ->orderBy('b.year', 'ASC')
+            ->getQuery()
+            //->getResult()
+        ;
+        return $qb->getResult();
+    }
+
+    public function findByChapterCode($chapter): array
+    {
+        $qb = $this->createQueryBuilder('b')
+            ->join('b.subconcept', 's')
+            ->andWhere('s.code >= :min')
+            ->andWhere('s.code < :max')
+            ->setParameter('min', $chapter * 10000)
+            ->setParameter('max', ($chapter+1) * 10000)
+            ->orderBy('b.year', 'ASC')
+            ->getQuery()
+            //->getResult()
+        ;
+        dump($qb->getResult());
+        return $qb->getResult();
+    }
+
+    public function findByProgramCode($code): array
+    {
+        $qb = $this->createQueryBuilder('b')
+            ->join('b.programm', 's')
+            ->andWhere('s.code = :code')
+            ->setParameter('code', $code)
+            ->orderBy('b.year', 'ASC')
+            ->getQuery()
+            //->getResult()
+        ;
+        //dump($qb->getResult());
+        return $qb->getResult();
+    }
+
+    public function findBySubconceptCode($code): array
+    {
+        $qb = $this->createQueryBuilder('b')
+            ->join('b.subconcept', 's')
+            ->andWhere('s.code = :code')
+            ->setParameter('code', $code)
+            ->orderBy('b.year', 'ASC')
+            ->getQuery()
+            //->getResult()
+        ;
+        //dump($qb->getResult());
+        return $qb->getResult();
+    }
+
     public function findByYearChapterNumber(BudgetYear $year, int $chapter): array
     {
         $qb = $this->createQueryBuilder('b')
