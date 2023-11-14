@@ -42,7 +42,7 @@
         {% set totalPercentInit = 0 %}{% set totalPercentCurrent = 0 %}
         {% for chapter in totals.chapter %}
           <tr>
-            <td><a href="{{ path('app_report_compare_programm', {'code': chapter.chapter.code })}}">{{ chapter.chapter.code }}</a></td>
+            <td><a href="{{ path('app_report_compare_programm', {'code': chapter.chapter.code })}}" title="Comparativa interanual programa {{ chapter.chapter.code }}">{{ chapter.chapter.code }}</a></td>
             <td>{{ chapter.chapter.description }}</td>
             <td class="text-right">{{ chapter.totalInit|number_format(2, ',', '.') }}&nbsp;€</td>
             <td>{{ (chapter.totalInit * 100 / totals.totalInit)|number_format(2,  ',', '.') }}%</td>
