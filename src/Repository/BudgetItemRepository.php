@@ -61,11 +61,29 @@ class BudgetItemRepository extends ServiceEntityRepository
         return $qb->getResult();
     }
 
+    public function findByCenterAndChapterCode($center, $chapter): array
+    {
+        $qb = $this->createQueryBuilder('b')
+            ->join('b.center', 'c')
+            ->join('b.subconcept', 's')
+            ->andWhere('c.code = :code')
+            ->andWhere('s.code >= :min')
+            ->andWhere('s.code < :max')
+            ->setParameter('code', $center)
+            ->setParameter('min', $chapter * 10000)
+            ->setParameter('max', ($chapter+1) * 10000)
+            ->orderBy('b.year', 'ASC')
+            ->getQuery()
+            //->getResult()
+        ;
+        return $qb->getResult();
+    }
+
     public function findByCenterCode($code): array
     {
         $qb = $this->createQueryBuilder('b')
-            ->join('b.center', 's')
-            ->andWhere('s.code = :code')
+            ->join('b.center', 'c')
+            ->andWhere('c.code = :code')
             ->setParameter('code', $code)
             ->orderBy('b.year', 'ASC')
             ->getQuery()
@@ -86,7 +104,6 @@ class BudgetItemRepository extends ServiceEntityRepository
             ->getQuery()
             //->getResult()
         ;
-        dump($qb->getResult());
         return $qb->getResult();
     }
 
@@ -119,7 +136,6 @@ class BudgetItemRepository extends ServiceEntityRepository
             ->getQuery()
             //->getResult()
         ;
-        //dump($qb->getResult());
         return $qb->getResult();
     }
 
@@ -133,7 +149,6 @@ class BudgetItemRepository extends ServiceEntityRepository
             ->getQuery()
             //->getResult()
         ;
-        //dump($qb->getResult());
         return $qb->getResult();
     }
 

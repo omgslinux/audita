@@ -44,7 +44,7 @@
           <tbody>
             {% for centercode in centers.centers %}
               <tr>
-                <td>{{ centercode.center.description }}</td>
+                <td><a href="{{ path('app_report_compare_center_chapter', {'code': centercode.center.code, 'chapter': chapternum } )}}">{{ centercode.center.description }}</a></td>
                 <td class="text-right">{{ centercode.totals.totalInit|number_format(2, ',', '.') }}€</td>
                 <td>{{ chaptertotals.totalInit>0 ? (centercode.totals.totalInit * 100 / (chaptertotals.totalInit))|number_format(2,  ',', '.') : 0 }}%</td>
                 <td class="text-right">{{ centercode.totals.totalCurrent|number_format(2, ',', '.') }}&nbsp;€</td>
