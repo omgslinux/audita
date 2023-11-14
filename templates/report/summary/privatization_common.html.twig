@@ -41,7 +41,7 @@
       <tbody>
         {% for object in totals.caption.caption %}
           <tr>
-            <td><a href="{{ path('app_report_compare_' ~ codetype, {'code': object.item.code })}}">{{ object.item.code }}</a></td>
+            <td><a href="{{ path('app_report_compare_' ~ codetype, {'code': object.item.code })}}" title="Comparativa interanual subconcepto {{ object.item.code }}">{{ object.item.code }}</a></td>
             <td>{{ object.item.description }}</td>
             <td class="text-right">{{ object.total.totalInit|number_format(2, ',', '.') }}&nbsp;€</td>
             <td class="text-right">{{ object.total.totalCurrent|number_format(2, ',', '.') }}&nbsp;€</td>
