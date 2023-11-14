@@ -93,9 +93,28 @@ class BudgetItemRepository extends ServiceEntityRepository
     public function findByProgramCode($code): array
     {
         $qb = $this->createQueryBuilder('b')
-            ->join('b.programm', 's')
-            ->andWhere('s.code = :code')
+            ->join('b.programm', 'p')
+            ->andWhere('p.code = :code')
             ->setParameter('code', $code)
+            ->orderBy('b.year', 'ASC')
+            ->getQuery()
+            //->getResult()
+        ;
+        //dump($qb->getResult());
+        return $qb->getResult();
+    }
+
+    public function findByProgramAndChapterCode($programm, $chapter): array
+    {
+        $qb = $this->createQueryBuilder('b')
+            ->join('b.programm', 'p')
+            ->join('b.subconcept', 's')
+            ->andWhere('p.code = :code')
+            ->andWhere('s.code >= :min')
+            ->andWhere('s.code < :max')
+            ->setParameter('code', $programm)
+            ->setParameter('min', $chapter * 10000)
+            ->setParameter('max', ($chapter+1) * 10000)
             ->orderBy('b.year', 'ASC')
             ->getQuery()
             //->getResult()

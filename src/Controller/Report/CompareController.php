@@ -153,6 +153,51 @@ class CompareController extends AbstractController
         return $this->renderCommon($title, $h1, $years, $code);
     }
 
+    #[Route('/program/{code}/chapter/{chapter}/show', name: 'programm_chapter', methods: ['GET'])]
+    public function programAndChapter(BIRepo $bRepo, $code, $chapter): Response
+    {
+        //$year = $budgetYear->getYear()->format('Y');
+        $h1 = "Comparativa interanual programa $code y capítulo $chapter";
+        $title = "Comparación presupuesto inicial y liquidado";
+        //$caption = 'Descripción';
+        $totals = [
+            'caption',
+            'totalInit' => 0,
+            'totalCurrent' => 0,
+            'devPos' => 0,
+            'devNeg' => 0
+        ];
+        $years=[];
+        foreach ($bRepo->findByProgramAndChapterCode($code, $chapter) as $budget) {
+            //dump($budget, $budget->getYear()->getYear()->format('Y'));
+            $year = $budget->getYear()->getYear()->format('Y');
+            if (empty($years[$year])) {
+                $years[$year] = [
+                    'item' => $budget,
+                    'caption' => $budget->getProgramm(),
+                    'totalInit' => 0,
+                    'totalCurrent' => 0,
+                    'devPos' => 0,
+                    'devNeg' => 0
+                ];
+            }
+            $yearTotals = $years[$year];
+            $init = $budget->getInitialCredit();
+            $current = $budget->getCurrentCredit();
+            $yearTotals['totalInit'] += $init;
+            $yearTotals['totalCurrent'] += $current;
+            $deviation = $current - $init;
+            if ($deviation>0) {
+              $yearTotals['devPos'] += $deviation;
+            } else {
+              $yearTotals['devNeg'] += $deviation;
+            }
+            $years[$year] = $yearTotals;
+        }
+
+        return $this->renderCommon($title, $h1, $years, $code);
+    }
+
 
     #[Route('/subconcept/{code}/show', name: 'subconcept', methods: ['GET'])]
     public function subconcept(BIRepo $bRepo, $code): Response

@@ -41,7 +41,7 @@
       <tbody>
         {% for item in totals.programm %}{% set object = item.programm %}
           <tr>
-            <td>{{ object.code }}</td>
+            <td><a href="{{ path('app_report_compare_programm_chapter', {'code': object.code, 'chapter': 6 } )}}">{{ object.code }}</a></td>
             <td>{{ object.description }}</td>
             <td class="text-right">{{ item.totalInit|number_format(2, ',', '.') }}&nbsp;€</td>
             <td>{{ (item.totalInit * 100 / totals.totalInit)|number_format(2,  ',', '.') }}%</td>
