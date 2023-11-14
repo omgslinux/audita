@@ -22,13 +22,13 @@
       <thead rowspan="2">
       <tr>
         <th rowspan="1">Año</th>
-        <th>{% if caption is not defined %}{% set caption = 'Código' %}{% endif %}{{ caption }}</th>
+        {#<th>{% if caption is not defined %}{% set caption = 'Código' %}{% endif %}{{ caption }}</th>#}
         <th rowspan="1">Descripción</th>
         <th colspan="1">Presupuesto inicial</th>
+        <th colspan="1">Variación inicial</th>
         <th colspan="1">Presupuesto liquidado</th>
-        <th colspan="1">Desviación neta</th>
-        <th rowspan="1">Desviación en más</th>
-        <th rowspan="1">Desviación en menos</th>
+        <th colspan="1">Variación liquidado</th>
+        <th colSpan="1">Variación inicial-liquidado</th>
       </tr>
       </thead>
       <tbody>
@@ -36,16 +36,18 @@
         {% for object in totals %}
           <tr>
             <td>{{ object.item.year }}</td>
-            <td>{{ object.caption.code }}</td>
+            {#<td>{{ object.caption.code }}</td>#}
             <td>{{ object.caption.description }}</td>
             <td class="text-right">{{ object.totalInit|number_format(2, ',', '.') }}&nbsp;€</td>
+            <td>{% if prevInit is defined %}{{ (object.totalInit/prevInit)|number_format(2, ',', '.') }}%
+              {%- else -%}--{% endif %}{% set prevInit = object.totalInit %}</td>
             {#<td>{{ (object.totalInit * 100 / totals.totalInit)|number_format(2,  ',', '.') }}%</td>#}
             <td class="text-right">{{ object.totalCurrent|number_format(2, ',', '.') }}&nbsp;€</td>
+            <td>{% if prevCurrent is defined and prevCurrent > 0 %}{{ (object.totalCurrent/prevCurrent)|number_format(2, ',', '.') }}%
+              {%- else -%}--{% endif %}{% set prevCurrent = object.totalCurrent %}</td>
             {#<td>{{ totals.totalCurrent>0?(object.totalCurrent * 100 / totals.totalCurrent)|number_format(2,  ',', '.') ~ '%':'--' }}</td>#}
-            <td class="col-2 border text-right">{{ (object.totalCurrent - object.totalInit)|number_format(2, ',', '.') }}&nbsp;€</td>
-            {#<td>{{ ((object.totalCurrent - object.totalInit) / (totals.totalCurrent - totals.totalInit) * 100)|number_format(2,  ',', '.') }}%</td>#}
-            <td class="col-2 border text-right">{{ object.devPos|number_format(2, ',', '.') }}&nbsp;€</td>
-            <td class="col-2 border text-right">{{ object.devNeg|number_format(2, ',', '.') }}&nbsp;€</td>
+            <td>{% if prevCurrent is defined and prevCurrent > 0 %}{{ (prevCurrent/prevInit)|number_format(2, ',', '.') }}%
+              {%- else -%}--{% endif %}</td>
           </tr>
         {% endfor %}
       </tbody>
