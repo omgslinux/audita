@@ -46,7 +46,7 @@
             <td>{% if prevCurrent is defined and prevCurrent > 0 and object.totalCurrent %}{{ ((object.totalCurrent*100/prevCurrent)-100)|number_format(2, ',', '.') }}%
               {%- else -%}--{% endif %}{% set prevCurrent = object.totalCurrent %}</td>
             {#<td>{{ totals.totalCurrent>0?(object.totalCurrent * 100 / totals.totalCurrent)|number_format(2,  ',', '.') ~ '%':'--' }}</td>#}
-            <td>{% if prevCurrent is defined and prevCurrent > 0 %}{{ (prevCurrent/prevInit)|number_format(2, ',', '.') }}%
+            <td>{% if prevCurrent is defined and prevCurrent > 0 %}{{ (((prevCurrent/prevInit)-1)*100)|number_format(2, ',', '.') }}%
               {%- else -%}--{% endif %}</td>
           </tr>
         {% endfor %}
