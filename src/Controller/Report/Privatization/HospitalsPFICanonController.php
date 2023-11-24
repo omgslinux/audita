@@ -47,7 +47,8 @@ class HospitalsPFICanonController extends AbstractController
             'h1' => $h1,
             'totals' => $totals,
             'caption' => $caption,
-        ]);
+            'items' => $this->getItems(),
+      ]);
     }
 
     public static function getItems(): array

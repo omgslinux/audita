@@ -17,7 +17,15 @@
     }
 </style>
     <h1>{{ h1 }}</h1>
-
+    {% if items is not defined -%}
+      {%- set codetype = 'subconcept' -%}
+    {%- else -%}
+      {%- if items.progs.codes|length > 0 -%}
+      {% set codetype = 'programm' %}
+      {% else %}
+      {% set codetype = 'center' %}
+      {% endif %}
+    {%- endif -%}
     <table class="table table-bordered">
       <thead rowspan="2">
       <tr>
@@ -33,7 +41,7 @@
       <tbody>
         {% for object in totals.caption.caption %}
           <tr>
-            <td>{{ object.item.code }}</td>
+            <td><a href="{{ path('app_report_compare_' ~ codetype, {'code': object.item.code })}}" title="Comparativa interanual subconcepto {{ object.item.code }}">{{ object.item.code }}</a></td>
             <td>{{ object.item.description }}</td>
             <td class="text-right">{{ object.total.totalInit|number_format(2, ',', '.') }}&nbsp;€</td>
             <td class="text-right">{{ object.total.totalCurrent|number_format(2, ',', '.') }}&nbsp;€</td>

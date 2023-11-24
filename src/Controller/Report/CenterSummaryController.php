@@ -65,7 +65,7 @@ class CenterSummaryController extends AbstractController
                 $totals['devNeg'] += $deviation;
             }
         }
-        return $this->render('report/summary/chapter_summary.html.twig', [
+        return $this->render('report/summary/center_summary.html.twig', [
             'title' => $title,
             'h1' => $h1,
             'totals' => $totals,
