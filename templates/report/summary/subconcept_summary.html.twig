@@ -34,7 +34,7 @@
         {% set totalPercentInit = 0 %}{% set totalPercentCurrent = 0 %}
         {% for object in totals.caption %}
           <tr>
-            <td>{{ object.item.code }}</td>
+            <td><a href="{{ path('app_report_compare_subconcept', {'code': object.item.code })}}">{{ object.item.code }}</a></td>
             <td>{{ object.item.description }}</td>
             <td class="text-right">{{ object.totalInit|number_format(2, ',', '.') }}&nbsp;€</td>
             {#<td>{{ (object.totalInit * 100 / totals.totalInit)|number_format(2,  ',', '.') }}%</td>#}

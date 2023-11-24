@@ -39,6 +39,15 @@ class BudgetChapterRepository extends ServiceEntityRepository
         }
     }
 
+    public function findByChapterCode($code): ?BudgetChapter
+    {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.code = :code')
+            ->setParameter('code', $code)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
 //    /**
 //     * @return BudgetChapters[] Returns an array of BudgetChapter objects
 //     */

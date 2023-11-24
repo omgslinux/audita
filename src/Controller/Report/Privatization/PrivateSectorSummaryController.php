@@ -51,7 +51,7 @@ class PrivateSectorSummaryController extends AbstractController
         );
         $totals = $report->getTotalsFromSub();*/
         $totals = $this->getTotals();
-        dump($totals);
+        //dump($totals);
         //$report->setHospitals('PPP');
         //$report->setCenters($report->getCodesByDescription($report->getHospitals()));
         //$totals = $report->getTotalsFromCenter($budgetYear);
@@ -142,7 +142,7 @@ class PrivateSectorSummaryController extends AbstractController
             //$t = $this->forward($name . 'Controller::getItems');
             //call_user_func($name . 'Controller::getItems', $this->processItems);
             eval('$items = ' . __NAMESPACE__ .'\\' . $name . 'Controller::getItems();');
-            dump($items);
+            //dump($items);
             if (!empty($items['progs']['codes'])) {
                 $this->report->setProgrammes($items['progs']['codes'], $items['progs']['exclude']);
             }
