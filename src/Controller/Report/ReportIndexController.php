@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Doctrine\ORM\EntityRepository;
 
 class ReportIndexController extends AbstractController
 {
@@ -139,7 +140,11 @@ class ReportIndexController extends AbstractController
                 //'data' => $budgetYear,
                 'multiple' => false,
                 'expanded' => false,
-            ]
+                'query_builder' => function (EntityRepository $er) {
+                    $qb = $er->createQueryBuilder('y');
+                    return $qb->orderBy('y.year', 'DESC');
+                },
+          ]
         )
         ->getForm();
 
