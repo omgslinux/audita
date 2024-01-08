@@ -13,12 +13,12 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{ path('app_report_index')}}">Informes</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ path('admin_budget_year_index')}}">Presupuestos</a>
-            </li>
             {% if is_granted('ROLE_ADMIN') %}
+              <li class="nav-item">
+                <a class="nav-link" href="{{ path('admin_budget_year_index')}}">Presupuestos</a>
+              </li>
               <!-- Dropdown -->
-              <li class="nav-item dropdown">
+{#              <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
                   aria-haspopup="true" aria-expanded="false">Mantenimiento</a>
                 <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
@@ -38,7 +38,7 @@
                   <a class="dropdown-item" href="{{ path('admin_user_index') }}">Gestion de usuarios</a>
                 </div>
             </li>
-          {% endif %}
+#}
 
 
         </ul>
@@ -52,6 +52,7 @@
                 </div>
             </li>
         </ul>
+        {% endif %}
     </div>
 </nav>
 <!-- Navbar -->

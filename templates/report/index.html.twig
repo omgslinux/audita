@@ -23,13 +23,17 @@ button {
 #green button {
     background-color: green;
 }
+label {
+  padding-right: 0.5rem;
+  padding-left: 1em;
+}
 </style>
     <h1>{{ h1 }}</h1>
 
 
     {{ form_start(form) }}
     <div class="row">
-    {{ form_row(form.year, {'label': 'Elige año'})}}
+    {{ form_row(form.year, {'label': 'Elige año:'})}}
     </div>
     <h2>Resúmenes presupuestarios</h2>
     <section id="blue">

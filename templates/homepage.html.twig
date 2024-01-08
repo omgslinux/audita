@@ -33,45 +33,22 @@
 </style>
     <div class="dashboard d-flex flex-column">
         {% if is_granted('ROLE_ADMIN') %}
-        <div id="roleadmin" class="item">
-            <li>
-                <a class="btn btn-primary" href="{{ path('admin_domain_index') }}">
-                {% trans %}Domain administration{% endtrans %}
-                </a>
-            </li>
-        </div>
-        {% endif %}
-        {% if is_granted('ROLE_MANAGER') %}
         <div id="rolemanager" class="item">
             <li>
-                <a class="btn btn-primary" href="{{ path('manage_user_index') }}">
-                {% trans %}Users in domain{% endtrans %}
+                <a class="btn btn-primary" href="{{ path('admin_user_index') }}">
+                {% trans %}Users{% endtrans %}
                 </a>
             </li>
         </div>
-        {% endif %}
-        {% if is_granted('ROLE_USER') %}
-        <div id="roleuser" class="item">
-            <li>
-                <a class="btn btn-primary" href="{{ path('user_self_edit') }}">
-                {% trans %}Change password{% endtrans %}
-                </a>
-            </li>{% set modalTitle = 'Change password' %}
-    {% set tagPrefix = 'edit' %}
-    {% set modalId = 'users' %}
-    {% set modalSize, included = 'modal-md', 'user/_pass' %}
-    {{ include('_modal.html.twig', {
-      'nobutton': true,
-      'form': user_form,
-      })
-    }}
+        {% set tagPrefix = 'edit' %}
+        {% set modalId = 'users' %}
+        {% set modalSize, included = 'modal-md', 'user/_pass' %}
+        {# include('_modal.html.twig', {
+          'nobutton': true,
+          'form': user_form,
+          })
+        #}
 
-            <li>
-                <a class="btn btn-primary" href="{{ path('manage_user_index') }}">
-                {% trans %}Autoreply{% endtrans %}
-                </a>
-            </li>
-        </div>
         {% endif %}
     </div>
 {% endblock %}

@@ -30,6 +30,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 32)]
     private ?string $username = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?bool $Admin = false;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -64,7 +67,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
+        if ($this->isAdmin()) {
+          $roles[] = 'ROLE_ADMIN';
+        } else {
+          $roles[] = 'ROLE_USER';
+        }
 
         return array_unique($roles);
     }
@@ -112,8 +119,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function isAdmin(): ?bool
+    {
+        return $this->Admin;
+    }
+
+    public function setAdmin(?bool $Admin): self
+    {
+        $this->Admin = $Admin;
+
+        return $this;
+    }
+
     public function __toString(): string
     {
-        return $this->username . '(' .$this->email . ')';
+      return $this->username . '(' .$this->email . ')';
     }
+
 }
