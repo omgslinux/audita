@@ -79,6 +79,38 @@ class BudgetItemRepository extends ServiceEntityRepository
         return $qb->getResult();
     }
 
+    public function findByCenterAndProgrammCode($center, $programm): array
+    {
+        $qb = $this->createQueryBuilder('b')
+            ->join('b.center', 'c')
+            ->join('b.programm', 'p')
+            ->andWhere('c.code = :ccode')
+            ->andWhere('p.code = :pcode')
+            ->setParameter('ccode', $center)
+            ->setParameter('pcode', $programm)
+            ->orderBy('b.year', 'ASC')
+            ->getQuery()
+            //->getResult()
+        ;
+        return $qb->getResult();
+    }
+
+    public function findByCenterAndSubconceptCode($center, $subconcept): array
+    {
+        $qb = $this->createQueryBuilder('b')
+            ->join('b.center', 'c')
+            ->join('b.subconcept', 's')
+            ->andWhere('c.code = :ccode')
+            ->andWhere('s.code = :scode')
+            ->setParameter('ccode', $center)
+            ->setParameter('scode', $subconcept)
+            ->orderBy('b.year', 'ASC')
+            ->getQuery()
+            //->getResult()
+        ;
+        return $qb->getResult();
+    }
+
     public function findByCenterCode($code): array
     {
         $qb = $this->createQueryBuilder('b')
@@ -132,6 +164,22 @@ class BudgetItemRepository extends ServiceEntityRepository
             ->setParameter('code', $programm)
             ->setParameter('min', $chapter * 10000)
             ->setParameter('max', ($chapter+1) * 10000)
+            ->orderBy('b.year', 'ASC')
+            ->getQuery()
+            //->getResult()
+        ;
+        return $qb->getResult();
+    }
+
+    public function findByProgramAndSubconceptCode($programm, $subconcept): array
+    {
+        $qb = $this->createQueryBuilder('b')
+            ->join('b.programm', 'p')
+            ->join('b.subconcept', 's')
+            ->andWhere('p.code = :pcode')
+            ->andWhere('s.code = :scode')
+            ->setParameter('pcode', $programm)
+            ->setParameter('scode', $subconcept)
             ->orderBy('b.year', 'ASC')
             ->getQuery()
             //->getResult()
