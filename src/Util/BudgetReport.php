@@ -30,7 +30,6 @@ class BudgetReport extends AbstractController
             'devPos' => 0,
             'devNeg' => 0
         ];
-    private $search;
     private $year=null;
     const SEARCH =
         [
@@ -84,6 +83,7 @@ class BudgetReport extends AbstractController
             'HOSPITAL DE COLLADO VILLALBA'
         ]
     ];
+    private $search = self::SEARCH;
 
 
     public function __construct(BudgetItemRepository $BIR, MCR $MCR, SCR $SCR, PR $PR)
@@ -92,8 +92,6 @@ class BudgetReport extends AbstractController
         $this->MCR = $MCR;
         $this->SCR = $SCR;
         $this->PR = $PR;
-
-        $this->search = self::SEARCH;
     }
 
     public function index(BudgetYear $budgetYear, MCR $MCR): Response
