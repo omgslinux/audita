@@ -16,11 +16,11 @@
     </div>
     <div class="row">
         <div class="col-2 border">TOTAL</div>
-        <div class="col-2 border text-right">{{ totals.totalInit|number_format(2, ',', '.') }} €</div>
-        <div class="col-2 border text-right">{{ totals.totalCurrent|number_format(2, ',', '.') }} €</div>
-        <div class="col-2 border text-right">{{ (totals.totalCurrent - totals.totalInit)|number_format(2, ',', '.') }} €</div>
-        <div class="col-2 border text-right">{{ totals.devPos|number_format(2, ',', '.') }} €</div>
-        <div class="col-2 border text-right">{{ totals.devNeg|number_format(2, ',', '.') }} €</div>
+        <div class="col-2 border text-end">{{ totals.totalInit|number_format(2, ',', '.') }} €</div>
+        <div class="col-2 border text-end">{{ totals.totalCurrent|number_format(2, ',', '.') }} €</div>
+        <div class="col-2 border text-end">{{ (totals.totalCurrent - totals.totalInit)|number_format(2, ',', '.') }} €</div>
+        <div class="col-2 border text-end">{{ totals.devPos|number_format(2, ',', '.') }} €</div>
+        <div class="col-2 border text-end">{{ totals.devNeg|number_format(2, ',', '.') }} €</div>
     </div>
 
 {% endblock %}
