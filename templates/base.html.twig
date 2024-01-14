@@ -2,12 +2,13 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{% block title %}Bienvenido a la aplicación de presupuestos de Audita Sanidad{% endblock %}</title>
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
         {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
-            <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}" />
+            <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" />
         {% endblock %}
     </head>
 
@@ -16,7 +17,16 @@
         header {
             min-height: 80px;
         }
-    </style>
+      thead {
+        --bs-table-bg: blue;
+        --bs-table-color-state: white;
+        text-align: center;
+        background-color: blue;
+        color: white;
+        font: 1.5rem;
+        font-weight: bolder;
+    }
+  </style>
       {% block flashes %}
         {# read and display just one flash message type #}
         {% for message in app.flashes('notice') %}
@@ -56,7 +66,7 @@
       {% block javascripts %}
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-        <script src="{{ asset('components/jquery.slim.js') }}"></script>
+        {#<script src="{{ asset('components/jquery.slim.js') }}"></script>#}
         <!-- The bootstrap bundle includes the optional popper.js -->
         <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
         {# encore_entry_script_tags('app') #}
