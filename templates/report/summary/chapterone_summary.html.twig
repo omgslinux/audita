@@ -46,38 +46,38 @@
 
               <tr>
                 <td>{{ item.title }}</td>
-                <td class="text-right">{{ total[p].totalInit|number_format(2, ',', '.') }}&nbsp;€</td>
+                <td class="text-end">{{ total[p].totalInit|number_format(2, ',', '.') }}&nbsp;€</td>
                 <td>{{ (total[p].totalInit * 100 / totals.totalInit)|number_format(2,  ',', '.') }}%</td>
-                <td class="text-right">{{ total[p].totalCurrent|number_format(2, ',', '.') }}&nbsp;€</td>
+                <td class="text-end">{{ total[p].totalCurrent|number_format(2, ',', '.') }}&nbsp;€</td>
                 <td>{{ totals.totalCurrent>0?(total[p].totalCurrent * 100 / totals.totalCurrent)|number_format(2,  ',', '.') ~ '%':'--' }}</td>
-                <td class="col-2 border text-right">{{ (total[p].totalCurrent - total[p].totalInit)|number_format(2, ',', '.') }}&nbsp;€</td>
+                <td class="col-2 border text-end">{{ (total[p].totalCurrent - total[p].totalInit)|number_format(2, ',', '.') }}&nbsp;€</td>
                 <td>{{ ((total[p].totalCurrent - total[p].totalInit) / (totals.totalCurrent - totals.totalInit) * 100)|number_format(2,  ',', '.') }}%</td>
-                <td class="col-2 border text-right">{{ total[p].devPos|number_format(2, ',', '.') }}&nbsp;€</td>
-                <td class="col-2 border text-right">{{ total[p].devNeg|number_format(2, ',', '.') }}&nbsp;€</td>
+                <td class="col-2 border text-end">{{ total[p].devPos|number_format(2, ',', '.') }}&nbsp;€</td>
+                <td class="col-2 border text-end">{{ total[p].devNeg|number_format(2, ',', '.') }}&nbsp;€</td>
               </tr>
           {% endfor %}
           <tr>
             <td>RETRIBUCIONES DEL PERSONAL ADSCRITO AL SERMAS</td>
-            <td class="text-right">{{ (totals.totalInit - subInit)|number_format(2, ',', '.') }}&nbsp;€</td>
+            <td class="text-end">{{ (totals.totalInit - subInit)|number_format(2, ',', '.') }}&nbsp;€</td>
             <td>{{ ((totals.totalInit - subInit) * 100 / totals.totalInit)|number_format(2,  ',', '.') }}%</td>
-            <td class="text-right">{{ (totals.totalCurrent - subCurr)|number_format(2, ',', '.') }}&nbsp;€</td>
+            <td class="text-end">{{ (totals.totalCurrent - subCurr)|number_format(2, ',', '.') }}&nbsp;€</td>
             <td>{{ totals.totalCurrent>0?((totals.totalCurrent - subCurr) * 100 / totals.totalCurrent)|number_format(2,  ',', '.') ~ '%':'--' }}</td>
-            <td class="col-2 border text-right">{{ ((totals.totalCurrent - subCurr) - (totals.totalInit - subInit))|number_format(2, ',', '.') }}&nbsp;€</td>
+            <td class="col-2 border text-end">{{ ((totals.totalCurrent - subCurr) - (totals.totalInit - subInit))|number_format(2, ',', '.') }}&nbsp;€</td>
             <td>{{ (((totals.totalCurrent - subCurr) - (totals.totalInit - subInit)) / (totals.totalCurrent - totals.totalInit) * 100)|number_format(2,  ',', '.') }}%</td>
-            <td class="col-2 border text-right">{{ (totals.devPos - subDevPos)|number_format(2, ',', '.') }}&nbsp;€</td>
-            <td class="col-2 border text-right">{{ (totals.devNeg - subDevNeg)|number_format(2, ',', '.') }}&nbsp;€</td>
+            <td class="col-2 border text-end">{{ (totals.devPos - subDevPos)|number_format(2, ',', '.') }}&nbsp;€</td>
+            <td class="col-2 border text-end">{{ (totals.devNeg - subDevNeg)|number_format(2, ',', '.') }}&nbsp;€</td>
           </tr>
 
         <tr class="bg-primary font-weight-bold">
             <td>TOTAL</td>
-            <td class="text-right">{{ totals.totalInit|number_format(2, ',', '.') }}&nbsp;€</td>
+            <td class="text-end">{{ totals.totalInit|number_format(2, ',', '.') }}&nbsp;€</td>
             <td>{{ (totals.totalInit * 100 / totals.totalInit)|number_format(2,  ',', '.') }}%</td>
-            <td class="text-right">{{ totals.totalCurrent|number_format(2, ',', '.') }}&nbsp;€</td>
+            <td class="text-end">{{ totals.totalCurrent|number_format(2, ',', '.') }}&nbsp;€</td>
             <td>{{ totals.totalCurrent>0 ? (totals.totalCurrent * 100 / totals.totalCurrent)|number_format(2,  ',', '.') ~ '%' : '--' }}</td>
-            <td class="col-2 border text-right">{{ (totals.totalCurrent - totals.totalInit)|number_format(2, ',', '.') }}&nbsp;€</td>
+            <td class="col-2 border text-end">{{ (totals.totalCurrent - totals.totalInit)|number_format(2, ',', '.') }}&nbsp;€</td>
             <td>{{ ((totals.totalCurrent - totals.totalInit) / (totals.totalCurrent - totals.totalInit) * 100)|number_format(2,  ',', '.') }}%</td>
-            <td class="col-2 border text-right">{{ totals.devPos|number_format(2, ',', '.') }}&nbsp;€</td>
-            <td class="col-2 border text-right">{{ totals.devNeg|number_format(2, ',', '.') }}&nbsp;€</td>
+            <td class="col-2 border text-end">{{ totals.devPos|number_format(2, ',', '.') }}&nbsp;€</td>
+            <td class="col-2 border text-end">{{ totals.devNeg|number_format(2, ',', '.') }}&nbsp;€</td>
         </tr>
       </tbody>
     </table>

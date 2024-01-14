@@ -45,29 +45,29 @@
             {% for centercode in centers.centers %}
               <tr>
                 <td><a href="{{ path('app_report_compare_center_chapter', {'code': centercode.center.code, 'chapter': chapternum } )}}">{{ centercode.center.description }}</a></td>
-                <td class="text-right">{{ centercode.totals.totalInit|number_format(2, ',', '.') }}€</td>
+                <td class="text-end">{{ centercode.totals.totalInit|number_format(2, ',', '.') }}€</td>
                 <td>{{ chaptertotals.totalInit>0 ? (centercode.totals.totalInit * 100 / (chaptertotals.totalInit))|number_format(2,  ',', '.') : 0 }}%</td>
-                <td class="text-right">{{ centercode.totals.totalCurrent|number_format(2, ',', '.') }}&nbsp;€</td>
+                <td class="text-end">{{ centercode.totals.totalCurrent|number_format(2, ',', '.') }}&nbsp;€</td>
                 <td>{{ chaptertotals.totalCurrent>0?(centercode.totals.totalCurrent * 100 / chaptertotals.totalCurrent??1)|number_format(2,  ',', '.') ~ '%':'--' }}</td>
-                <td class="col-2 border text-right">{{ (centercode.totals.totalCurrent - centercode.totals.totalInit)|number_format(2, ',', '.') }}&nbsp;€</td>
+                <td class="col-2 border text-end">{{ (centercode.totals.totalCurrent - centercode.totals.totalInit)|number_format(2, ',', '.') }}&nbsp;€</td>
                 <td>{{ (chaptertotals.totalCurrent - chaptertotals.totalInit)>0?((centercode.totals.totalCurrent - centercode.totals.totalInit??1) / (chaptertotals.totalCurrent - chaptertotals.totalInit) * 100)|number_format(2,  ',', '.'):'--' }}%</td>
-                <td class="col-2 border text-right">{{ centercode.totals.devPos|number_format(2, ',', '.') }}&nbsp;€</td>
-                <td class="col-2 border text-right">{{ centercode.totals.devNeg|number_format(2, ',', '.') }}&nbsp;€</td>
-                {#}<td class="text-right">{{ chapternum.totalInit|number_format(2, ',', '.') }}&nbsp;€</td>
+                <td class="col-2 border text-end">{{ centercode.totals.devPos|number_format(2, ',', '.') }}&nbsp;€</td>
+                <td class="col-2 border text-end">{{ centercode.totals.devNeg|number_format(2, ',', '.') }}&nbsp;€</td>
+                {#}<td class="text-end">{{ chapternum.totalInit|number_format(2, ',', '.') }}&nbsp;€</td>
                 <td>Centercode: {{ dump(centercode) }}</td><td>Chaptertotals: {{ dump(chaptertotals) }}</td>
                 #}
               </tr>
           {% endfor %}
                 <tr class="bg-primary font-weight-bold">
                     <td>TOTAL</td>
-                    <td class="text-right">{{ chaptertotals.totalInit|number_format(2, ',', '.') }}&nbsp;€</td>
+                    <td class="text-end">{{ chaptertotals.totalInit|number_format(2, ',', '.') }}&nbsp;€</td>
                     <td>{{ chaptertotals.totalInit>0?(chaptertotals.totalInit * 100 / chaptertotals.totalInit)|number_format(2,  ',', '.'):'--' }}%</td>
-                    <td class="text-right">{{ chaptertotals.totalCurrent|number_format(2, ',', '.') }}&nbsp;€</td>
+                    <td class="text-end">{{ chaptertotals.totalCurrent|number_format(2, ',', '.') }}&nbsp;€</td>
                     <td>{{ chaptertotals.totalCurrent>0 ? (chaptertotals.totalCurrent * 100 / chaptertotals.totalCurrent)|number_format(2,  ',', '.') ~ '%' : '--' }}</td>
-                    <td class="col-2 border text-right">{{ (chaptertotals.totalCurrent - chaptertotals.totalInit)|number_format(2, ',', '.') }}&nbsp;€</td>
+                    <td class="col-2 border text-end">{{ (chaptertotals.totalCurrent - chaptertotals.totalInit)|number_format(2, ',', '.') }}&nbsp;€</td>
                     <td>{{ (chaptertotals.totalCurrent - chaptertotals.totalInit)>0?((chaptertotals.totalCurrent - chaptertotals.totalInit) / (chaptertotals.totalCurrent - chaptertotals.totalInit) * 100)|number_format(2,  ',', '.'):'--' }}%</td>
-                    <td class="col-2 border text-right">{{ chaptertotals.devPos|number_format(2, ',', '.') }}&nbsp;€</td>
-                    <td class="col-2 border text-right">{{ chaptertotals.devNeg|number_format(2, ',', '.') }}&nbsp;€</td>
+                    <td class="col-2 border text-end">{{ chaptertotals.devPos|number_format(2, ',', '.') }}&nbsp;€</td>
+                    <td class="col-2 border text-end">{{ chaptertotals.devNeg|number_format(2, ',', '.') }}&nbsp;€</td>
                 </tr>
               </tbody>
             </table>
@@ -75,14 +75,14 @@
         <table class="table table-bordered">
         <tr class="bg-primary font-weight-bold">
             <td class="col-2">TOTAL</td>
-            <td class="text-right">{{ itemtotals.totalInit|number_format(2, ',', '.') }}&nbsp;€</td>
+            <td class="text-end">{{ itemtotals.totalInit|number_format(2, ',', '.') }}&nbsp;€</td>
             <td>{{ itemtotals.totalInit>0?(itemtotals.totalInit * 100 / itemtotals.totalInit)|number_format(2,  ',', '.'):'--' }}%</td>
-            <td class="text-right">{{ itemtotals.totalCurrent|number_format(2, ',', '.') }}&nbsp;€</td>
+            <td class="text-end">{{ itemtotals.totalCurrent|number_format(2, ',', '.') }}&nbsp;€</td>
             <td>{{ itemtotals.totalCurrent>0 ? (itemtotals.totalCurrent * 100 / itemtotals.totalCurrent)|number_format(2,  ',', '.') ~ '%' : '--' }}</td>
-            <td class="col-2 border text-right">{{ (itemtotals.totalCurrent - itemtotals.totalInit)|number_format(2, ',', '.') }}&nbsp;€</td>
+            <td class="col-2 border text-end">{{ (itemtotals.totalCurrent - itemtotals.totalInit)|number_format(2, ',', '.') }}&nbsp;€</td>
             <td>{{ (itemtotals.totalCurrent - itemtotals.totalInit)>0?((itemtotals.totalCurrent - itemtotals.totalInit) / (itemtotals.totalCurrent - itemtotals.totalInit) * 100)|number_format(2,  ',', '.'):'--' }}%</td>
-            <td class="col-2 border text-right">{{ itemtotals.devPos|number_format(2, ',', '.') }}&nbsp;€</td>
-            <td class="col-2 border text-right">{{ itemtotals.devNeg|number_format(2, ',', '.') }}&nbsp;€</td>
+            <td class="col-2 border text-end">{{ itemtotals.devPos|number_format(2, ',', '.') }}&nbsp;€</td>
+            <td class="col-2 border text-end">{{ itemtotals.devNeg|number_format(2, ',', '.') }}&nbsp;€</td>
         </tr>
     </table>
 
