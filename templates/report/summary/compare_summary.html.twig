@@ -38,11 +38,11 @@
             <td>{{ object.item.year }}</td>
             {#<td>{{ object.caption.code }}</td>#}
             <td>{{ object.caption.description }}</td>
-            <td class="text-right">{{ object.totalInit|number_format(2, ',', '.') }}&nbsp;€</td>
+            <td class="text-end">{{ object.totalInit|number_format(2, ',', '.') }}&nbsp;€</td>
             <td>{% if prevInit is defined and prevInit > 0 %}{{ ((object.totalInit*100/prevInit)-100)|number_format(2, ',', '.') }}%
               {%- else -%}--{% endif %}{% set prevInit = object.totalInit %}</td>
             {#<td>{{ (object.totalInit * 100 / totals.totalInit)|number_format(2,  ',', '.') }}%</td>#}
-            <td class="text-right">{{ object.totalCurrent|number_format(2, ',', '.') }}&nbsp;€</td>
+            <td class="text-end">{{ object.totalCurrent|number_format(2, ',', '.') }}&nbsp;€</td>
             <td>{% if prevCurrent is defined and prevCurrent > 0 and object.totalCurrent %}{{ ((object.totalCurrent*100/prevCurrent)-100)|number_format(2, ',', '.') }}%
               {%- else -%}--{% endif %}{% set prevCurrent = object.totalCurrent %}</td>
             {#<td>{{ totals.totalCurrent>0?(object.totalCurrent * 100 / totals.totalCurrent)|number_format(2,  ',', '.') ~ '%':'--' }}</td>#}
