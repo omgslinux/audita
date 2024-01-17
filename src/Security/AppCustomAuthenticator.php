@@ -29,6 +29,7 @@ class AppCustomAuthenticator extends AbstractAuthenticator
 
     public function supports(Request $request): ?bool
     {
+        $verify = "NONE";
         if ($request->server->get('SSL_CLIENT_VERIFY')) {
             $verify = $request->server->get('SSL_CLIENT_VERIFY');
         }
