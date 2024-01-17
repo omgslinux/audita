@@ -29,9 +29,7 @@ class AppCustomAuthenticator extends AbstractAuthenticator
 
     public function supports(Request $request): ?bool
     {
-        if ($request->server->get('HTTP_X_SSL_CLIENT_VERIFY')) {
-            $verify = $request->server->get('HTTP_X_SSL_CLIENT_VERIFY');
-        } else {
+        if ($request->server->get('SSL_CLIENT_VERIFY')) {
             $verify = $request->server->get('SSL_CLIENT_VERIFY');
         }
         return $verify=="SUCCESS";
@@ -39,10 +37,11 @@ class AppCustomAuthenticator extends AbstractAuthenticator
 
     public function authenticate(Request $request): Passport
     {
-        if ($request->server->get('HTTP_X_SSL_CLIENT_VERIFY')) {
-          $cert= openssl_x509_parse(urldecode($request->server->get('HTTP_X_SSL_CLIENT_CERT')));
+        $rawcert = $request->server->get('SSL_CLIENT_CERT');
+        if (strpos($rawcert, '%20')) {
+          $cert= openssl_x509_parse(urldecode($rawcert));
         } else {
-          $cert= openssl_x509_parse($request->server->get('SSL_CLIENT_CERT'));
+          $cert= openssl_x509_parse($rawcert);
         }
         $email = $cert['subject']['emailAddress'];
         return new SelfValidatingPassport(new UserBadge($email));
