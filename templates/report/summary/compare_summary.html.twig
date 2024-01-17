@@ -37,7 +37,7 @@
           <tr>
             <td>{{ object.item.year }}</td>
             {#<td>{{ object.caption.code }}</td>#}
-            <td>{{ object.caption.description }}</td>
+            <td>{{ code ? object.caption.description : "Año" }}</td>
             <td class="text-end">{{ object.totalInit|number_format(2, ',', '.') }}&nbsp;€</td>
             <td>{% if prevInit is defined and prevInit > 0 %}{{ ((object.totalInit*100/prevInit)-100)|number_format(2, ',', '.') }}%
               {%- else -%}--{% endif %}{% set prevInit = object.totalInit %}</td>
