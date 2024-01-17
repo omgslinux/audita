@@ -424,7 +424,52 @@ class CompareController extends AbstractController
         return $this->renderCommon($title, $h1, $years, $code);
     }
 
-    private function renderCommon($title, $h1, $years, $code)
+    #[Route('/allyears/show', name: 'years', methods: ['GET'])]
+    public function years(BIRepo $bRepo): Response
+    {
+        //$year = $budgetYear->getYear()->format('Y');
+        $h1 = "Comparativa interanual ";
+        $title = "Comparación presupuesto inicial y liquidado";
+        //$caption = 'Descripción';
+        $totals = [
+            'caption',
+            'totalInit' => 0,
+            'totalCurrent' => 0,
+            'devPos' => 0,
+            'devNeg' => 0
+        ];
+        $years=[];
+        foreach ($bRepo->findAll() as $budget) {
+            //dump($budget, $budget->getYear()->getYear()->format('Y'));
+            $year = $budget->getYear()->getYear()->format('Y');
+            if (empty($years[$year])) {
+                $years[$year] = [
+                    'item' => $budget,
+                    'caption' => $budget->getSubconcept(),
+                    'totalInit' => 0,
+                    'totalCurrent' => 0,
+                    'devPos' => 0,
+                    'devNeg' => 0
+                ];
+            }
+            $yearTotals = $years[$year];
+            $init = $budget->getInitialCredit();
+            $current = $budget->getCurrentCredit();
+            $yearTotals['totalInit'] += $init;
+            $yearTotals['totalCurrent'] += $current;
+            $deviation = $current - $init;
+            if ($deviation>0) {
+              $yearTotals['devPos'] += $deviation;
+            } else {
+              $yearTotals['devNeg'] += $deviation;
+            }
+            $years[$year] = $yearTotals;
+        }
+
+        return $this->renderCommon($title, $h1, $years);
+    }
+
+    private function renderCommon($title, $h1, $years, $code=null)
     {
         sort($years, ksort($years));
 

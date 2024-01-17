@@ -15,7 +15,7 @@
         <div class="col-2 text-center font-weight-bold">Desviación en menos</div>
     </div>
     <div class="row">
-        <div class="col-2 border">TOTAL</div>
+        <div class="col-2 border"><a title="Comparativa interanual" href="{{ path('app_report_compare_years')}}">TOTAL</a></div>
         <div class="col-2 border text-end">{{ totals.totalInit|number_format(2, ',', '.') }} €</div>
         <div class="col-2 border text-end">{{ totals.totalCurrent|number_format(2, ',', '.') }} €</div>
         <div class="col-2 border text-end">{{ (totals.totalCurrent - totals.totalInit)|number_format(2, ',', '.') }} €</div>
